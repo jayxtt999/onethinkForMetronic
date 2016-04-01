@@ -1,0 +1,69 @@
+<div class="page-header navbar navbar-fixed-top">
+    <!-- BEGIN HEADER INNER -->
+    <div class="page-header-inner">
+        <!-- BEGIN LOGO -->
+        <div class="page-logo">
+            <a href="index.html">
+                <img src="__STATIC__/assets/admin/layout/img/logo.png" alt="logo" class="logo-default"/>
+            </a>
+            <div class="menu-toggler sidebar-toggler hide">
+                <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
+            </div>
+        </div>
+        <!-- END LOGO -->
+
+
+        <div class="hor-menu hor-menu-light hidden-sm hidden-xs">
+
+            <ul class="nav navbar-nav">
+
+                <volist name="__MENU__.main" id="menu">
+                    <li class="<if condition="$menu.class eq 'current'">classic-menu-dropdown active<else />classic-menu-dropdown</if>">
+                    <a href="{$menu.url|U}">
+                        {$menu.title}
+                        <if condition="$menu.class eq 'current'"><span class="selected"></span></if>
+                    </a></li>
+                </volist>
+
+            </ul>
+        </div>
+
+
+
+
+
+
+        <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+        <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
+        </a>
+        <!-- END RESPONSIVE MENU TOGGLER -->
+        <!-- BEGIN TOP NAVIGATION MENU -->
+        <div class="top-menu">
+            <ul class="nav navbar-nav pull-right">
+
+                <li class="dropdown dropdown-user">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                        <img alt="" class="img-circle hide1" src="__STATIC__/assets/admin/layout/img/avatar3_small.jpg"/>
+					<span class="username username-hide-on-mobile">
+					{:session('user_auth.username')} </span>
+                        <i class="fa fa-angle-down"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{:U('User/updatePassword')}">修改密码</a></li>
+                        <li><a href="{:U('User/updateNickname')}">修改昵称</a></li>
+                    </ul>
+                </li>
+                <!-- END USER LOGIN DROPDOWN -->
+                <!-- BEGIN QUICK SIDEBAR TOGGLER -->
+                <li class="dropdown dropdown-quick-sidebar-toggler">
+                    <a href="{:U('Public/logout')}" class="dropdown-toggle">
+                        <i class="icon-logout"></i>
+                    </a>
+                </li>
+                <!-- END QUICK SIDEBAR TOGGLER -->
+            </ul>
+        </div>
+        <!-- END TOP NAVIGATION MENU -->
+    </div>
+    <!-- END HEADER INNER -->
+</div>

@@ -15,33 +15,37 @@
     <meta content="" name="description"/>
     <meta content="" name="author"/>
     <!-- BEGIN GLOBAL MANDATORY STYLES -->
-
     <link href="/Public/static/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
-    <link href="/Public/static/assets/global/plugins/pace/themes/pace-theme-barber-shop.css" rel="stylesheet" type="text/css"/>
-    <link href="/Public/static/assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
-    <link href="/Public/static/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-    <link href="/Public/static/assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
-    <link href="/Public/static/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
-    <!-- END GLOBAL MANDATORY STYLES -->
-    <!-- BEGIN PAGE LEVEL PLUGIN STYLES -->
-    <link href="/Public/static/assets/global/plugins/gritter/css/jquery.gritter.css" rel="stylesheet" type="text/css"/>
-    <link href="/Public/static/assets/global/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css"/>
-    <link href="/Public/static/assets/global/plugins/fullcalendar/fullcalendar/fullcalendar.css" rel="stylesheet" type="text/css"/>
-    <!-- END PAGE LEVEL PLUGIN STYLES -->
-    <!-- BEGIN PAGE STYLES -->
-    <link href="/Public/static/assets/admin/pages/css/tasks.css" rel="stylesheet" type="text/css"/>
-    <!-- END PAGE STYLES -->
-    <!-- BEGIN THEME STYLES -->
-    <link href="/Public/static/assets/global/css/components.css" rel="stylesheet" type="text/css"/>
-    <link href="/Public/static/assets/global/css/plugins.css" rel="stylesheet" type="text/css"/>
-    <link href="/Public/static/assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css"/>
-    <link href="/Public/static/assets/admin/layout/css/themes/default.css" rel="stylesheet" type="text/css" id="style_color"/>
-    <link href="/Public/static/assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
-    <link href="/Public/static/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css" rel="stylesheet" type="text/css"/>
-    <link rel="stylesheet" type="text/css" href="/Public/static/assets/global/plugins/select2/select2.css"/>
-    
-    <!-- END THEME STYLES -->
-    <link href="/Public/favicon.ico" type="image/x-icon" rel="shortcut icon">
+<link href="/Public/static/assets/global/plugins/pace/themes/pace-theme-barber-shop.css" rel="stylesheet" type="text/css"/>
+<link href="/Public/static/assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
+<link href="/Public/static/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+<link href="/Public/static/assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+<link href="/Public/static/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
+<!-- END GLOBAL MANDATORY STYLES -->
+<!-- BEGIN PAGE LEVEL PLUGIN STYLES -->
+<link href="/Public/static/assets/global/plugins/gritter/css/jquery.gritter.css" rel="stylesheet" type="text/css"/>
+<link href="/Public/static/assets/global/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css"/>
+<link href="/Public/static/assets/global/plugins/fullcalendar/fullcalendar/fullcalendar.css" rel="stylesheet" type="text/css"/>
+<!-- END PAGE LEVEL PLUGIN STYLES -->
+<!-- BEGIN PAGE STYLES -->
+<link href="/Public/static/assets/admin/pages/css/tasks.css" rel="stylesheet" type="text/css"/>
+<!-- END PAGE STYLES -->
+<!-- BEGIN THEME STYLES -->
+<link href="/Public/static/assets/global/css/components.css" rel="stylesheet" type="text/css"/>
+<link href="/Public/static/assets/global/css/plugins.css" rel="stylesheet" type="text/css"/>
+<link href="/Public/static/assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css"/>
+<link href="/Public/static/assets/admin/layout/css/themes/default.css" rel="stylesheet" type="text/css" id="style_color"/>
+<link href="/Public/static/assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
+<link href="/Public/static/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css" rel="stylesheet" type="text/css"/>
+<link rel="stylesheet" type="text/css" href="/Public/static/assets/global/plugins/select2/select2.css"/>
+
+<!-- END THEME STYLES -->
+<link href="/Public/favicon.ico" type="image/x-icon" rel="shortcut icon">
+
+<!-- 用于加载 css 代码 -->
+<!-- 页面header钩子，一般用于加载插件CSS文件和代码 -->
+<?php echo hook('pageHeader');?>
+
 </head>
 
 <body class="page-header-fixed page-quick-sidebar-over-content">
@@ -66,10 +70,10 @@
             <ul class="nav navbar-nav">
 
                 <?php if(is_array($__MENU__["main"])): $i = 0; $__LIST__ = $__MENU__["main"];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$menu): $mod = ($i % 2 );++$i;?><li class="<?php if($menu["class"] == 'current'): ?>classic-menu-dropdown active<?php else: ?>classic-menu-dropdown<?php endif; ?>">
-                        <a href="<?php echo (U($menu["url"])); ?>">
+                    <a href="<?php echo (U($menu["url"])); ?>">
                         <?php echo ($menu["title"]); ?>
-                            <?php if($menu["class"] == 'current'): ?><span class="selected"></span><?php endif; ?>
-                        </a></li><?php endforeach; endif; else: echo "" ;endif; ?>
+                        <?php if($menu["class"] == 'current'): ?><span class="selected"></span><?php endif; ?>
+                    </a></li><?php endforeach; endif; else: echo "" ;endif; ?>
 
             </ul>
         </div>
@@ -113,6 +117,7 @@
     </div>
     <!-- END HEADER INNER -->
 </div>
+
 <!-- END HEADER -->
 <div class="clearfix">
 </div>
@@ -301,7 +306,7 @@
             <!-- BEGIN PAGE HEADER-->
             <!--<h3 class="page-title">
                     <?php echo ($__BOOTSTRAPMENU__['_page-bar']['p3']); ?><small><?php echo ($__BOOTSTRAPMENU__['_page-bar']['tip']); ?></small>
-            </h3>
+            </h3>-->
             <div class="page-bar">
                 <ul class="page-breadcrumb">
                     <li>
@@ -317,11 +322,10 @@
                         <span><?php echo ($__BOOTSTRAPMENU__['_page-bar']['p3']); ?></span>
                     </li>
                 </ul>
-            </div>-->
+            </div>
 
 
             
-
 
 	<div class="row">
 		<div class="col-md-12">
@@ -334,12 +338,7 @@
 					<div class="tools">
 						<a href="javascript:;" class="collapse">
 						</a>
-						<a href="#portlet-config" data-toggle="modal" class="config">
-						</a>
-						<a href="javascript:;" class="reload">
-						</a>
-						<a href="javascript:;" class="remove">
-						</a>
+
 					</div>
 				</div>
 				<div class="portlet-body">
@@ -347,7 +346,6 @@
 						<div class="row">
 							<div class="col-md-6 cf">
 								<div class="fl">
-
 
 									<a class="btn green" href="<?php echo U('add');?>">新 增</a>
 
@@ -366,658 +364,71 @@
 								</div>
 							</div>
 
+							<div class="col-md-6 ">
+
+								<div class="input-group input-medium pull-right clearfix search-form">
+									<input type="text"  name="nickname" class="form-control search-input" value="<?php echo I('nickname');?>" placeholder="请输入用户昵称或者ID...">
+								<span class="input-group-btn">
+								<button type="submit" class="btn blue" id="search" url="<?php echo U('index');?>"><i class="fa fa-search"></i></button>
+								</span>
+								</div>
+
+							</div>
+
 						</div>
 					</div>
-					<table class="table table-striped table-bordered table-hover" id="sample_1">
+					<table class="table table-striped table-bordered table-hover" id="dataTables-user">
 						<thead>
+
 						<tr>
 							<th class="table-checkbox">
-								<input type="checkbox" class="group-checkable" data-set="#sample_1 .checkboxes"/>
+								<input type="checkbox" class="group-checkable" data-set="#dataTables-user .checkboxes"/>
 							</th>
-							<th>
-								Username
-							</th>
-							<th>
-								Email
-							</th>
-							<th>
-								Points
-							</th>
-							<th>
-								Joined
-							</th>
-							<th>
-								Status
-							</th>
+							<th class="">UID</th>
+							<th class="">昵称</th>
+							<th class="">积分</th>
+							<th class="">登录次数</th>
+							<th class="">最后登录时间</th>
+							<th class="">最后登录IP</th>
+							<th class="">状态</th>
+							<th class="">操作</th>
 						</tr>
+
+
 						</thead>
 						<tbody>
-						<tr class="odd gradeX">
-							<td>
-								<input type="checkbox" class="checkboxes" value="1"/>
-							</td>
-							<td>
-								shuxer
-							</td>
-							<td>
-								<a href="mailto:shuxer@gmail.com">
-									shuxer@gmail.com </a>
-							</td>
-							<td>
-								120
-							</td>
-							<td class="center">
-								12 Jan 2012
-							</td>
-							<td>
-									<span class="label label-sm label-success">
-									Approved </span>
-							</td>
-						</tr>
-						<tr class="odd gradeX">
-							<td>
-								<input type="checkbox" class="checkboxes" value="1"/>
-							</td>
-							<td>
-								looper
-							</td>
-							<td>
-								<a href="mailto:looper90@gmail.com">
-									looper90@gmail.com </a>
-							</td>
-							<td>
-								120
-							</td>
-							<td class="center">
-								12.12.2011
-							</td>
-							<td>
-									<span class="label label-sm label-warning">
-									Suspended </span>
-							</td>
-						</tr>
-						<tr class="odd gradeX">
-							<td>
-								<input type="checkbox" class="checkboxes" value="1"/>
-							</td>
-							<td>
-								userwow
-							</td>
-							<td>
-								<a href="mailto:userwow@yahoo.com">
-									userwow@yahoo.com </a>
-							</td>
-							<td>
-								20
-							</td>
-							<td class="center">
-								12.12.2012
-							</td>
-							<td>
-									<span class="label label-sm label-success">
-									Approved </span>
-							</td>
-						</tr>
-						<tr class="odd gradeX">
-							<td>
-								<input type="checkbox" class="checkboxes" value="1"/>
-							</td>
-							<td>
-								user1wow
-							</td>
-							<td>
-								<a href="mailto:userwow@gmail.com">
-									userwow@gmail.com </a>
-							</td>
-							<td>
-								20
-							</td>
-							<td class="center">
-								12.12.2012
-							</td>
-							<td>
-									<span class="label label-sm label-default">
-									Blocked </span>
-							</td>
-						</tr>
-						<tr class="odd gradeX">
-							<td>
-								<input type="checkbox" class="checkboxes" value="1"/>
-							</td>
-							<td>
-								restest
-							</td>
-							<td>
-								<a href="mailto:userwow@gmail.com">
-									test@gmail.com </a>
-							</td>
-							<td>
-								20
-							</td>
-							<td class="center">
-								12.12.2012
-							</td>
-							<td>
-									<span class="label label-sm label-success">
-									Approved </span>
-							</td>
-						</tr>
-						<tr class="odd gradeX">
-							<td>
-								<input type="checkbox" class="checkboxes" value="1"/>
-							</td>
-							<td>
-								foopl
-							</td>
-							<td>
-								<a href="mailto:userwow@gmail.com">
-									good@gmail.com </a>
-							</td>
-							<td>
-								20
-							</td>
-							<td class="center">
-								19.11.2010
-							</td>
-							<td>
-									<span class="label label-sm label-success">
-									Approved </span>
-							</td>
-						</tr>
-						<tr class="odd gradeX">
-							<td>
-								<input type="checkbox" class="checkboxes" value="1"/>
-							</td>
-							<td>
-								weep
-							</td>
-							<td>
-								<a href="mailto:userwow@gmail.com">
-									good@gmail.com </a>
-							</td>
-							<td>
-								20
-							</td>
-							<td class="center">
-								19.11.2010
-							</td>
-							<td>
-									<span class="label label-sm label-success">
-									Approved </span>
-							</td>
-						</tr>
-						<tr class="odd gradeX">
-							<td>
-								<input type="checkbox" class="checkboxes" value="1"/>
-							</td>
-							<td>
-								coop
-							</td>
-							<td>
-								<a href="mailto:userwow@gmail.com">
-									good@gmail.com </a>
-							</td>
-							<td>
-								20
-							</td>
-							<td class="center">
-								19.11.2010
-							</td>
-							<td>
-									<span class="label label-sm label-success">
-									Approved </span>
-							</td>
-						</tr>
-						<tr class="odd gradeX">
-							<td>
-								<input type="checkbox" class="checkboxes" value="1"/>
-							</td>
-							<td>
-								pppol
-							</td>
-							<td>
-								<a href="mailto:userwow@gmail.com">
-									good@gmail.com </a>
-							</td>
-							<td>
-								20
-							</td>
-							<td class="center">
-								19.11.2010
-							</td>
-							<td>
-									<span class="label label-sm label-success">
-									Approved </span>
-							</td>
-						</tr>
-						<tr class="odd gradeX">
-							<td>
-								<input type="checkbox" class="checkboxes" value="1"/>
-							</td>
-							<td>
-								test
-							</td>
-							<td>
-								<a href="mailto:userwow@gmail.com">
-									good@gmail.com </a>
-							</td>
-							<td>
-								20
-							</td>
-							<td class="center">
-								19.11.2010
-							</td>
-							<td>
-									<span class="label label-sm label-success">
-									Approved </span>
-							</td>
-						</tr>
-						<tr class="odd gradeX">
-							<td>
-								<input type="checkbox" class="checkboxes" value="1"/>
-							</td>
-							<td>
-								userwow
-							</td>
-							<td>
-								<a href="mailto:userwow@gmail.com">
-									userwow@gmail.com </a>
-							</td>
-							<td>
-								20
-							</td>
-							<td class="center">
-								12.12.2012
-							</td>
-							<td>
-									<span class="label label-sm label-default">
-									Blocked </span>
-							</td>
-						</tr>
-						<tr class="odd gradeX">
-							<td>
-								<input type="checkbox" class="checkboxes" value="1"/>
-							</td>
-							<td>
-								test
-							</td>
-							<td>
-								<a href="mailto:userwow@gmail.com">
-									test@gmail.com </a>
-							</td>
-							<td>
-								20
-							</td>
-							<td class="center">
-								12.12.2012
-							</td>
-							<td>
-									<span class="label label-sm label-success">
-									Approved </span>
-							</td>
-						</tr>
-						<tr class="odd gradeX">
-							<td>
-								<input type="checkbox" class="checkboxes" value="1"/>
-							</td>
-							<td>
-								goop
-							</td>
-							<td>
-								<a href="mailto:userwow@gmail.com">
-									good@gmail.com </a>
-							</td>
-							<td>
-								20
-							</td>
-							<td class="center">
-								12.11.2010
-							</td>
-							<td>
-									<span class="label label-sm label-success">
-									Approved </span>
-							</td>
-						</tr>
-						<tr class="odd gradeX">
-							<td>
-								<input type="checkbox" class="checkboxes" value="1"/>
-							</td>
-							<td>
-								weep
-							</td>
-							<td>
-								<a href="mailto:userwow@gmail.com">
-									good@gmail.com </a>
-							</td>
-							<td>
-								20
-							</td>
-							<td class="center">
-								15.11.2011
-							</td>
-							<td>
-									<span class="label label-sm label-default">
-									Blocked </span>
-							</td>
-						</tr>
-						<tr class="odd gradeX">
-							<td>
-								<input type="checkbox" class="checkboxes" value="1"/>
-							</td>
-							<td>
-								toopl
-							</td>
-							<td>
-								<a href="mailto:userwow@gmail.com">
-									good@gmail.com </a>
-							</td>
-							<td>
-								20
-							</td>
-							<td class="center">
-								16.11.2010
-							</td>
-							<td>
-									<span class="label label-sm label-success">
-									Approved </span>
-							</td>
-						</tr>
-						<tr class="odd gradeX">
-							<td>
-								<input type="checkbox" class="checkboxes" value="1"/>
-							</td>
-							<td>
-								userwow
-							</td>
-							<td>
-								<a href="mailto:userwow@gmail.com">
-									userwow@gmail.com </a>
-							</td>
-							<td>
-								20
-							</td>
-							<td class="center">
-								9.12.2012
-							</td>
-							<td>
-									<span class="label label-sm label-default">
-									Blocked </span>
-							</td>
-						</tr>
-						<tr class="odd gradeX">
-							<td>
-								<input type="checkbox" class="checkboxes" value="1"/>
-							</td>
-							<td>
-								tes21t
-							</td>
-							<td>
-								<a href="mailto:userwow@gmail.com">
-									test@gmail.com </a>
-							</td>
-							<td>
-								20
-							</td>
-							<td class="center">
-								14.12.2012
-							</td>
-							<td>
-									<span class="label label-sm label-success">
-									Approved </span>
-							</td>
-						</tr>
-						<tr class="odd gradeX">
-							<td>
-								<input type="checkbox" class="checkboxes" value="1"/>
-							</td>
-							<td>
-								fop
-							</td>
-							<td>
-								<a href="mailto:userwow@gmail.com">
-									good@gmail.com </a>
-							</td>
-							<td>
-								20
-							</td>
-							<td class="center">
-								13.11.2010
-							</td>
-							<td>
-									<span class="label label-sm label-warning">
-									Suspended </span>
-							</td>
-						</tr>
-						<tr class="odd gradeX">
-							<td>
-								<input type="checkbox" class="checkboxes" value="1"/>
-							</td>
-							<td>
-								kop
-							</td>
-							<td>
-								<a href="mailto:userwow@gmail.com">
-									good@gmail.com </a>
-							</td>
-							<td>
-								20
-							</td>
-							<td class="center">
-								17.11.2010
-							</td>
-							<td>
-									<span class="label label-sm label-success">
-									Approved </span>
-							</td>
-						</tr>
-						<tr class="odd gradeX">
-							<td>
-								<input type="checkbox" class="checkboxes" value="1"/>
-							</td>
-							<td>
-								vopl
-							</td>
-							<td>
-								<a href="mailto:userwow@gmail.com">
-									good@gmail.com </a>
-							</td>
-							<td>
-								20
-							</td>
-							<td class="center">
-								19.11.2010
-							</td>
-							<td>
-									<span class="label label-sm label-success">
-									Approved </span>
-							</td>
-						</tr>
-						<tr class="odd gradeX">
-							<td>
-								<input type="checkbox" class="checkboxes" value="1"/>
-							</td>
-							<td>
-								userwow
-							</td>
-							<td>
-								<a href="mailto:userwow@gmail.com">
-									userwow@gmail.com </a>
-							</td>
-							<td>
-								20
-							</td>
-							<td class="center">
-								12.12.2012
-							</td>
-							<td>
-									<span class="label label-sm label-default">
-									Blocked </span>
-							</td>
-						</tr>
-						<tr class="odd gradeX">
-							<td>
-								<input type="checkbox" class="checkboxes" value="1"/>
-							</td>
-							<td>
-								wap
-							</td>
-							<td>
-								<a href="mailto:userwow@gmail.com">
-									test@gmail.com </a>
-							</td>
-							<td>
-								20
-							</td>
-							<td class="center">
-								12.12.2012
-							</td>
-							<td>
-									<span class="label label-sm label-success">
-									Approved </span>
-							</td>
-						</tr>
-						<tr class="odd gradeX">
-							<td>
-								<input type="checkbox" class="checkboxes" value="1"/>
-							</td>
-							<td>
-								test
-							</td>
-							<td>
-								<a href="mailto:userwow@gmail.com">
-									good@gmail.com </a>
-							</td>
-							<td>
-								20
-							</td>
-							<td class="center">
-								19.12.2010
-							</td>
-							<td>
-									<span class="label label-sm label-success">
-									Approved </span>
-							</td>
-						</tr>
-						<tr class="odd gradeX">
-							<td>
-								<input type="checkbox" class="checkboxes" value="1"/>
-							</td>
-							<td>
-								toop
-							</td>
-							<td>
-								<a href="mailto:userwow@gmail.com">
-									good@gmail.com </a>
-							</td>
-							<td>
-								20
-							</td>
-							<td class="center">
-								17.12.2010
-							</td>
-							<td>
-									<span class="label label-sm label-success">
-									Approved </span>
-							</td>
-						</tr>
-						<tr class="odd gradeX">
-							<td>
-								<input type="checkbox" class="checkboxes" value="1"/>
-							</td>
-							<td>
-								weep
-							</td>
-							<td>
-								<a href="mailto:userwow@gmail.com">
-									good@gmail.com </a>
-							</td>
-							<td>
-								20
-							</td>
-							<td class="center">
-								15.11.2011
-							</td>
-							<td>
-									<span class="label label-sm label-success">
-									Approved </span>
-							</td>
-						</tr>
+						<?php if(is_array($_list)): $i = 0; $__LIST__ = $_list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><tr class="odd gradeX">
+							<td>
+							<input type="checkbox" class="checkboxes ids" name="id[]" value="<?php echo ($vo["uid"]); ?>" />
+							</td>
+							<td><?php echo ($vo["uid"]); ?> </td>
+							<td><?php echo ($vo["nickname"]); ?></td>
+							<td><?php echo ($vo["score"]); ?></td>
+							<td><?php echo ($vo["login"]); ?></td>
+							<td><span><?php echo (time_format($vo["last_login_time"])); ?></span></td>
+							<td><span><?php echo long2ip($vo['last_login_ip']);?></span></td>
+							<td><?php echo ($vo["status_text"]); ?></td>
+							<td><?php if(($vo["status"]) == "1"): ?><a href="<?php echo U('User/changeStatus?method=forbidUser&id='.$vo['uid']);?>" class="ajax-get">禁用</a>
+								<?php else: ?>
+								<a href="<?php echo U('User/changeStatus?method=resumeUser&id='.$vo['uid']);?>" class="ajax-get">启用</a><?php endif; ?>
+								<a href="<?php echo U('AuthManager/group?uid='.$vo['uid']);?>" class="authorize">授权</a>
+								<a href="<?php echo U('User/changeStatus?method=deleteUser&id='.$vo['uid']);?>" class="confirm ajax-get">删除</a>
+							</td>
+						</tr><?php endforeach; endif; else: echo "" ;endif; ?>
 						</tbody>
 					</table>
+
+					<div class="page">
+						<?php echo ($_page); ?>
+					</div>
+
 				</div>
 			</div>
 			<!-- END EXAMPLE TABLE PORTLET-->
 		</div>
-	</div>
-
-
-
-
-	<div class="row">
-
-	<!-- 标题栏 -->
-	<div class="page-title">
-		<h2>用户列表</h2>
-	</div>
-	<div class="cf">
-		<div class="fl">
-            <a class="btn" href="<?php echo U('add');?>">新 增</a>
-            <button class="btn ajax-post" url="<?php echo U('changeStatus?method=resumeUser');?>" target-form="ids">启 用</button>
-            <button class="btn ajax-post" url="<?php echo U('changeStatus?method=forbidUser');?>" target-form="ids">禁 用</button>
-            <button class="btn ajax-post confirm" url="<?php echo U('changeStatus?method=deleteUser');?>" target-form="ids">删 除</button>
-        </div>
-
-        <!-- 高级搜索 -->
-		<div class="search-form fr cf">
-			<div class="sleft">
-				<input type="text" name="nickname" class="search-input" value="<?php echo I('nickname');?>" placeholder="请输入用户昵称或者ID">
-				<a class="sch-btn" href="javascript:;" id="search" url="<?php echo U('index');?>"><i class="btn-search"></i></a>
-			</div>
-		</div>
-    </div>
-    <!-- 数据列表 -->
-    <div class="data-table table-striped">
-	<table class="">
-    <thead>
-        <tr>
-		<th class="row-selected row-selected"><input class="check-all" type="checkbox"/></th>
-		<th class="">UID</th>
-		<th class="">昵称</th>
-		<th class="">积分</th>
-		<th class="">登录次数</th>
-		<th class="">最后登录时间</th>
-		<th class="">最后登录IP</th>
-		<th class="">状态</th>
-		<th class="">操作</th>
-		</tr>
-    </thead>
-    <tbody>
-		<?php if(!empty($_list)): if(is_array($_list)): $i = 0; $__LIST__ = $_list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><tr>
-            <td><input class="ids" type="checkbox" name="id[]" value="<?php echo ($vo["uid"]); ?>" /></td>
-			<td><?php echo ($vo["uid"]); ?> </td>
-			<td><?php echo ($vo["nickname"]); ?></td>
-			<td><?php echo ($vo["score"]); ?></td>
-			<td><?php echo ($vo["login"]); ?></td>
-			<td><span><?php echo (time_format($vo["last_login_time"])); ?></span></td>
-			<td><span><?php echo long2ip($vo['last_login_ip']);?></span></td>
-			<td><?php echo ($vo["status_text"]); ?></td>
-			<td><?php if(($vo["status"]) == "1"): ?><a href="<?php echo U('User/changeStatus?method=forbidUser&id='.$vo['uid']);?>" class="ajax-get">禁用</a>
-				<?php else: ?>
-				<a href="<?php echo U('User/changeStatus?method=resumeUser&id='.$vo['uid']);?>" class="ajax-get">启用</a><?php endif; ?>
-				<a href="<?php echo U('AuthManager/group?uid='.$vo['uid']);?>" class="authorize">授权</a>
-                <a href="<?php echo U('User/changeStatus?method=deleteUser&id='.$vo['uid']);?>" class="confirm ajax-get">删除</a>
-                </td>
-		</tr><?php endforeach; endif; else: echo "" ;endif; ?>
-		<?php else: ?>
-		<td colspan="9" class="text-center"> aOh! 暂时还没有内容! </td><?php endif; ?>
-	</tbody>
-    </table>
-	</div>
-    <div class="page">
-        <?php echo ($_page); ?>
-    </div>
 
 	</div>
+
 
 
 
@@ -1038,6 +449,8 @@
 		</span>
     </div>
 </div>
+
+
 
 <script src="/Public/static/assets/global/plugins/pace/pace.min.js" type="text/javascript"></script>
 
@@ -1074,13 +487,7 @@
 <script src="/Public/static/assets/global/plugins/gritter/js/jquery.gritter.js" type="text/javascript"></script>
 <!-- END PAGE LEVEL PLUGINS -->
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
-<script src="/Public/static/assets/global/plugins/jqvmap/jqvmap/jquery.vmap.js" type="text/javascript"></script>
-<script src="/Public/static/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.russia.js" type="text/javascript"></script>
-<script src="/Public/static/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.world.js" type="text/javascript"></script>
-<script src="/Public/static/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.europe.js" type="text/javascript"></script>
-<script src="/Public/static/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.germany.js" type="text/javascript"></script>
-<script src="/Public/static/assets/global/plugins/jqvmap/jqvmap/maps/jquery.vmap.usa.js" type="text/javascript"></script>
-<script src="/Public/static/assets/global/plugins/jqvmap/jqvmap/data/jquery.vmap.sampledata.js" type="text/javascript"></script>
+
 <script src="/Public/static/assets/global/scripts/metronic.js" type="text/javascript"></script>
 <script src="/Public/static/assets/admin/layout/scripts/layout.js" type="text/javascript"></script>
 <script src="/Public/static/assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
@@ -1092,18 +499,29 @@
 <!-- END PAGE LEVEL SCRIPTS -->
 
 <!--Table-->
+<script type="text/javascript">
+(function(){
+	var ThinkPHP = window.Think = {
+		"ROOT"   : "", //当前网站地址
+		"APP"    : "/admin.php?s=", //当前项目地址
+		"PUBLIC" : "/Public", //项目公共目录地址
+		"DEEP"   : "<?php echo C('URL_PATHINFO_DEPR');?>", //PATHINFO分割符
+		"MODEL"  : ["<?php echo C('URL_MODEL');?>", "<?php echo C('URL_CASE_INSENSITIVE');?>", "<?php echo C('URL_HTML_SUFFIX');?>"],
+		"VAR"    : ["<?php echo C('VAR_MODULE');?>", "<?php echo C('VAR_CONTROLLER');?>", "<?php echo C('VAR_ACTION');?>"]
+	}
+})();
+</script>
+<script type="text/javascript" src="/Public/static/think.js"></script>
+<script type="text/javascript" src="/Public/static/think_ajax.js"></script>
 
 <script type="text/javascript" src="/Public/static/assets/global/plugins/datatables/media/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="/Public/static/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
 
 <!--Table END-->
 
-
 <!--Plug-->
-
-<script type="text/javascript" src="/Public/static/plugins/Validform_v5.3.2_ncr_min.js"></script>
-<script type="text/javascript" src="/Public/static/plugins/layer/layer.min.js"></script>
-
+<script type="text/javascript" src="/Public/static/Validform_v5.3.2_ncr_min.js"></script>
+<script type="text/javascript" src="/Public/static/layer/layer.js"></script>
 
 <!--Plug END-->
 
@@ -1116,78 +534,12 @@
     });
 </script>
 
+
+
 	<script src="/Public/static/thinkbox/jquery.thinkbox.js"></script>
-
 	<script type="text/javascript">
-	//搜索功能
-	$("#search").click(function(){
-		var url = $(this).attr('url');
-        var query  = $('.search-form').find('input').serialize();
-        query = query.replace(/(&|^)(\w*?\d*?\-*?_*?)*?=?((?=&)|(?=$))/g,'');
-        query = query.replace(/^&/g,'');
-        if( url.indexOf('?')>0 ){
-            url += '&' + query;
-        }else{
-            url += '?' + query;
-        }
-		window.location.href = url;
-	});
-	//回车搜索
-	$(".search-input").keyup(function(e){
-		if(e.keyCode === 13){
-			$("#search").click();
-			return false;
-		}
-	});
-    //导航高亮
-	jQuery(document).ready(function() {
-
-		var table = $('#sample_1');
-		// begin first table
-		table.dataTable({
-			"columns": [{
-				"orderable": false
-			}, {
-				"orderable": true
-			}, {
-				"orderable": false
-			}, {
-				"orderable": false
-			}, {
-				"orderable": true
-			}, {
-				"orderable": false
-			}],
-			"lengthMenu": [
-				[5, 15, 20, -1],
-				[5, 15, 20, "All"] // change per page values here
-			],
-			// set the initial value
-			"pageLength": 5,
-			"pagingType": "bootstrap_full_number",
-			"language": {
-				"lengthMenu": "  _MENU_ records",
-				"paginate": {
-					"previous":"Prev",
-					"next": "Next",
-					"last": "Last",
-					"first": "First"
-				}
-			},
-			"columnDefs": [{  // set default column settings
-				'orderable': false,
-				'targets': [0]
-			}, {
-				"searchable": false,
-				"targets": [0]
-			}],
-			"order": [
-				[1, "asc"]
-			] // set first column as a default sort by asc
-		});
-
-		var tableWrapper = jQuery('#sample_1_wrapper');
-
+	$(function(){
+		var table = $('#dataTables-user');
 		table.find('.group-checkable').change(function () {
 			var set = jQuery(this).attr("data-set");
 			var checked = jQuery(this).is(":checked");
@@ -1202,13 +554,10 @@
 			});
 			jQuery.uniform.update(set);
 		});
-
 		table.on('change', 'tbody tr .checkboxes', function () {
 			$(this).parents('tr').toggleClass("active");
 		});
-
-		tableWrapper.find('.dataTables_length select').addClass("form-control input-xsmall input-inline");
-	});
+	})
 	</script>
 
 
