@@ -1,0 +1,49 @@
+<extend name="Public/base"/>
+<!-- 管理员用户组新增和编辑页面 -->
+<block name="body">
+
+
+    <div class="row">
+        <div class="col-lg-12">
+
+            <div class="portlet box green">
+                <div class="portlet-title">
+                    <div class="caption">
+                        <i class="fa fa-globe"></i>{$auth_group['id']?'编辑':'新增'}用户组
+                    </div>
+                    <div class="tools">
+                        <a href="javascript:;" class="collapse">
+                        </a>
+
+                    </div>
+                </div>
+                <div class="portlet-body form">
+                    <div role="form">
+                        <form action="{:U('AuthManager/writeGroup')}" enctype="application/x-www-form-urlencoded"
+                              method="POST" class="form-body" role="form">
+                            <div class="form-group">
+                                <label for="auth-title" class="item-label">用户组</label>
+                                <div class="input-group"><input id="auth-title" type="text" name="title" class="form-control"
+                                       value="{$auth_group.title}"/></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="auth-description" class="item-label">描述</label>
+                                <div class="input-group"><textarea id="auth-description" type="text" name="description" class="form-control">{$auth_group.description}</textarea>
+                            </div>
+                                </div>
+                            <div class="form-group">
+                                <input type="hidden" name="id" value="{$auth_group.id}"/>
+                                <button type="submit" class="btn green submit-btn ajax-post" target-form="form">确 定
+                                </button>
+                                <button class="btn btn-default btn-return"
+                                        onclick="javascript:history.back(-1);return false;">返 回
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</block>

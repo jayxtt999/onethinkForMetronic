@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en" class="no-js">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8"/>
+    <title>{$meta_title}|OneThink管理平台</title>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <include file="Public/head"/>
+
+</head>
+
+<body class="page-header-fixed page-quick-sidebar-over-content">
+<!-- BEGIN HEADER -->
+<include file="Public/header"/>
+<!-- END HEADER -->
+<div class="clearfix">
+</div>
+<!-- BEGIN CONTAINER -->
+<div class="page-container">
+    <!-- BEGIN SIDEBAR -->
+    <div class="page-sidebar-wrapper">
+        <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+        <!-- DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+        <div class="page-sidebar navbar-collapse collapse">
+            <!-- BEGIN SIDEBAR MENU -->
+            <ul class="page-sidebar-menu" data-auto-scroll="true" data-slide-speed="200">
+                <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
+
+
+
+                <li class="sidebar-toggler-wrapper">
+                    <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                    <div class="sidebar-toggler">
+                    </div>
+                    <!-- END SIDEBAR TOGGLER BUTTON -->
+                </li>
+                <!-- DOC: To remove the search box from the sidebar you just need to completely remove the below "sidebar-search-wrapper" LI element -->
+                <li class="sidebar-search-wrapper">
+                    <!-- BEGIN RESPONSIVE QUICK SEARCH FORM -->
+                    <!-- DOC: Apply "sidebar-search-bordered" class the below search form to have bordered search box -->
+                    <!-- DOC: Apply "sidebar-search-bordered sidebar-search-solid" class the below search form to have bordered & solid search box -->
+                    <form class="sidebar-search " action="extra_search.html" method="POST">
+                        <a href="javascript:;" class="remove">
+                            <i class="icon-close"></i>
+                        </a>
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search...">
+							<span class="input-group-btn">
+							<a href="javascript:;" class="btn submit"><i class="icon-magnifier"></i></a>
+							</span>
+                        </div>
+                    </form>
+                    <!-- END RESPONSIVE QUICK SEARCH FORM -->
+                </li>
+
+
+                <notempty name="_extra_menu">
+                    {// 动态扩展菜单 //}
+                    {:extra_menu($_extra_menu,$__MENU__)}
+                </notempty>
+
+                <volist name="__MENU__.child"  key="k" id="sub_menu">
+
+                    <notempty name="sub_menu">
+                        <notempty name="key">
+                            <assign name="_key" value="$key" />
+                            <li class="<if condition="array_key_exists($key,$__BOOTSTRAPMENU__)">start active open</if>">
+                                <a href="javascript:;">
+
+                                    <span class="title">{$key}</span>
+
+                                    <if condition="array_key_exists($key,$__BOOTSTRAPMENU__)">
+                                        <span class="arrow open"></span>
+                                        <else/>
+                                        <span class="arrow"></span>
+                                    </if>
+
+                                </a>
+                                <ul class="sub-menu">
+                                    <volist name="sub_menu"  id="menu">
+                                        <li class="<if condition="$menu.id  eq $__BOOTSTRAPMENU__[$_key]['current']['id']">active</if>">
+                                            <a href="{$menu.url|U}">
+                                                {$menu.title}</a>
+                                        </li>
+                                    </volist>
+                                </ul>
+                            </li>
+                        </notempty>
+
+
+                    </notempty>
+
+                </volist>
+
+            </ul>
+            <!-- END SIDEBAR MENU -->
+        </div>
+    </div>
+    <!-- END SIDEBAR -->
+    <!-- BEGIN CONTENT -->
+    <div class="page-content-wrapper">
+        <div class="page-content">
+            <!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+            <div class="modal fade" id="portlet-config" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                            <h4 class="modal-title">Modal title</h4>
+                        </div>
+                        <div class="modal-body">
+                            Widget settings form goes here
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn blue">Save changes</button>
+                            <button type="button" class="btn default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+            <!-- /.modal -->
+            <!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+            <!-- BEGIN STYLE CUSTOMIZER -->
+
+            <div class="theme-panel hidden-xs hidden-sm">
+                <div class="toggler">
+                </div>
+                <div class="toggler-close">
+                </div>
+                <div class="theme-options">
+                    <div class="theme-option theme-colors clearfix">
+						<span>
+						主题颜色 </span>
+                        <ul>
+                            <li class="color-default current tooltips" data-style="default" data-container="body"
+                                data-original-title="Default">
+                            </li>
+                            <li class="color-darkblue tooltips" data-style="darkblue" data-container="body"
+                                data-original-title="Dark Blue">
+                            </li>
+                            <li class="color-blue tooltips" data-style="blue" data-container="body" data-original-title="Blue">
+                            </li>
+                            <li class="color-grey tooltips" data-style="grey" data-container="body" data-original-title="Grey">
+                            </li>
+                            <li class="color-light tooltips" data-style="light" data-container="body" data-original-title="Light">
+                            </li>
+                            <li class="color-light2 tooltips" data-style="light2" data-container="body" data-html="true"
+                                data-original-title="Light 2">
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="theme-option">
+						<span>
+						布局 </span>
+                        <select class="layout-option form-control input-small">
+                            <option value="fluid" selected="selected">不固定</option>
+                            <option value="boxed">盒型</option>
+                        </select>
+                    </div>
+                    <div class="theme-option">
+						<span>
+						头部 </span>
+                        <select class="page-header-option form-control input-small">
+                            <option value="fixed" selected="selected">固定</option>
+                            <option value="default">默认</option>
+                        </select>
+                    </div>
+                    <div class="theme-option">
+						<span>
+						侧边栏模式</span>
+                        <select class="sidebar-option form-control input-small">
+                            <option value="fixed">固定</option>
+                            <option value="default" selected="selected">默认</option>
+                        </select>
+                    </div>
+                    <div class="theme-option">
+						<span>
+						侧边栏菜单 </span>
+                        <select class="sidebar-menu-option form-control input-small">
+                            <option value="accordion" selected="selected">手风琴</option>
+                            <option value="hover">悬停</option>
+                        </select>
+                    </div>
+                    <div class="theme-option">
+						<span>
+						侧边栏样式 </span>
+                        <select class="sidebar-style-option form-control input-small">
+                            <option value="default" selected="selected">默认</option>
+                            <option value="light">顶部</option>
+                        </select>
+                    </div>
+                    <div class="theme-option">
+						<span>
+						边栏位置
+</span>
+                        <select class="sidebar-pos-option form-control input-small">
+                            <option value="left" selected="selected">左</option>
+                            <option value="right">右</option>
+                        </select>
+                    </div>
+                    <div class="theme-option">
+						<span>
+						底部 </span>
+                        <select class="page-footer-option form-control input-small">
+                            <option value="fixed">固定</option>
+                            <option value="default" selected="selected">默认</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- END STYLE CUSTOMIZER -->
+            <!-- BEGIN PAGE HEADER-->
+            <!--<h3 class="page-title">
+                    {$__BOOTSTRAPMENU__['_page-bar']['p3']}<small>{$__BOOTSTRAPMENU__['_page-bar']['tip']}</small>
+            </h3>-->
+            <div class="page-bar">
+                <ul class="page-breadcrumb">
+                    <li>
+                        <i class="fa fa-home"></i>
+                        <span>{$__BOOTSTRAPMENU__['_page-bar']['p1']}</span>
+                        <i class="fa fa-angle-right"></i>
+                    </li>
+                    <li>
+                        <span>{$__BOOTSTRAPMENU__['_page-bar']['p2']}</span>
+                        <i class="fa fa-angle-right"></i>
+                    </li>
+                    <li>
+                        <span>{$__BOOTSTRAPMENU__['_page-bar']['p3']}</span>
+                    </li>
+                </ul>
+            </div>
+
+
+            <block name="body"> </block>
+
+
+        </div>
+    </div>
+    <!-- END CONTENT -->
+
+</div>
+<!-- END CONTAINER -->
+<!-- BEGIN FOOTER -->
+<include file="Public/footer"/>
+
+
+<include file="Public/script"/>
+
+
+<block name="script"></block>
+
+</body>
+
+<!-- END BODY -->
+</html>
