@@ -1,13 +1,19 @@
-<volist name="tree" id="list">
-    <li>
-        <span><i class="fa fa-table fa-fw"></i>&nbsp;&nbsp;{$list.title}</span>&nbsp;&nbsp; <input class="cate_id"
-                                                                                                   type="checkbox"
-                                                                                                   name="cid[]"
-                                                                                                   value="{$list.id}">&nbsp;&nbsp;权限
+[
+{
+<php>$authed_group = $tree['authed_group'];</php>
+<volist name="tree['group_list']" id="list">
+        "id": "{$list.id}",
+        "name": "{$list.name}",
+        "text": "{$list.title}",
+        <if condition="in_array($list['id'],explode(',',$authed_group))">
+            "state": {
+            "selected": true
+            },
+        </if>
+
         <notempty name="list['_']">
-            <ul>
-                {:R('AuthManager/tree', array($list['_']))}
-            </ul>
+            "children":{:R('AuthManager/tree', array(array('group_list'=>$list['_'],'authed_group'=>$authed_group)))}
         </notempty>
-    </li>
 </volist>
+}
+]

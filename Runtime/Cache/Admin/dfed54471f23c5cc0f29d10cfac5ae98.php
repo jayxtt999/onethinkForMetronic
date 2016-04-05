@@ -1,410 +1,622 @@
-<?php if (!defined('THINK_PATH')) exit();?><!doctype html>
-<html>
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html>
+
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en" class="no-js">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8"/>
     <title><?php echo ($meta_title); ?>|OneThink管理平台</title>
-    <link href="/Public/favicon.ico" type="image/x-icon" rel="shortcut icon">
-    <link rel="stylesheet" type="text/css" href="/Public/Admin/css/base.css" media="all">
-    <link rel="stylesheet" type="text/css" href="/Public/Admin/css/common.css" media="all">
-    <link rel="stylesheet" type="text/css" href="/Public/Admin/css/module.css">
-    <link rel="stylesheet" type="text/css" href="/Public/Admin/css/style.css" media="all">
-	<link rel="stylesheet" type="text/css" href="/Public/Admin/css/<?php echo (C("COLOR_STYLE")); ?>.css" media="all">
-     <!--[if lt IE 9]>
-    <script type="text/javascript" src="/Public/static/jquery-1.10.2.min.js"></script>
-    <![endif]--><!--[if gte IE 9]><!-->
-    <script type="text/javascript" src="/Public/static/jquery-2.0.3.min.js"></script>
-    <script type="text/javascript" src="/Public/Admin/js/jquery.mousewheel.js"></script>
-    <!--<![endif]-->
-    
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <link href="/Public/static/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+<link href="/Public/static/assets/global/plugins/pace/themes/pace-theme-barber-shop.css" rel="stylesheet" type="text/css"/>
+<link href="/Public/static/assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
+<link href="/Public/static/assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+<link href="/Public/static/assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+<link href="/Public/static/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
+<!-- END GLOBAL MANDATORY STYLES -->
+<!-- BEGIN PAGE LEVEL PLUGIN STYLES -->
+<link href="/Public/static/assets/global/plugins/gritter/css/jquery.gritter.css" rel="stylesheet" type="text/css"/>
+<link href="/Public/static/assets/global/plugins/bootstrap-daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css"/>
+<link href="/Public/static/assets/global/plugins/fullcalendar/fullcalendar/fullcalendar.css" rel="stylesheet" type="text/css"/>
+<!-- END PAGE LEVEL PLUGIN STYLES -->
+<!-- BEGIN PAGE STYLES -->
+<link href="/Public/static/assets/admin/pages/css/tasks.css" rel="stylesheet" type="text/css"/>
+<!-- END PAGE STYLES -->
+<!-- BEGIN THEME STYLES -->
+<link href="/Public/static/assets/global/css/components.css" rel="stylesheet" type="text/css"/>
+<link href="/Public/static/assets/global/css/plugins.css" rel="stylesheet" type="text/css"/>
+<link href="/Public/static/assets/admin/layout/css/layout.css" rel="stylesheet" type="text/css"/>
+<link href="/Public/static/assets/admin/layout/css/themes/default.css" rel="stylesheet" type="text/css" id="style_color"/>
+<link href="/Public/static/assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
+<link href="/Public/static/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css" rel="stylesheet" type="text/css"/>
+<link rel="stylesheet" type="text/css" href="/Public/static/assets/global/plugins/select2/select2.css"/>
+
+<!-- END THEME STYLES -->
+<link href="/Public/favicon.ico" type="image/x-icon" rel="shortcut icon">
+
+<!-- 用于加载 css 代码 -->
+<!-- 页面header钩子，一般用于加载插件CSS文件和代码 -->
+<?php echo hook('pageHeader');?>
+
 </head>
-<body>
-    <!-- 头部 -->
-    <div class="header">
-        <!-- Logo -->
-        <span class="logo"></span>
-        <!-- /Logo -->
 
-        <!-- 主导航 -->
-        <ul class="main-nav">
-            <?php if(is_array($__MENU__["main"])): $i = 0; $__LIST__ = $__MENU__["main"];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$menu): $mod = ($i % 2 );++$i;?><li class="<?php echo ((isset($menu["class"]) && ($menu["class"] !== ""))?($menu["class"]):''); ?>"><a href="<?php echo (U($menu["url"])); ?>"><?php echo ($menu["title"]); ?></a></li><?php endforeach; endif; else: echo "" ;endif; ?>
-        </ul>
-        <!-- /主导航 -->
+<body class="page-header-fixed page-quick-sidebar-over-content">
+<!-- BEGIN HEADER -->
+<div class="page-header navbar navbar-fixed-top">
+    <!-- BEGIN HEADER INNER -->
+    <div class="page-header-inner">
+        <!-- BEGIN LOGO -->
+        <div class="page-logo">
+            <a href="index.html">
+                <img src="/Public/static/assets/admin/layout/img/logo.png" alt="logo" class="logo-default"/>
+            </a>
+            <div class="menu-toggler sidebar-toggler hide">
+                <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
+            </div>
+        </div>
+        <!-- END LOGO -->
 
-        <!-- 用户栏 -->
-        <div class="user-bar">
-            <a href="javascript:;" class="user-entrance"><i class="icon-user"></i></a>
-            <ul class="nav-list user-menu hidden">
-                <li class="manager">你好，<em title="<?php echo session('user_auth.username');?>"><?php echo session('user_auth.username');?></em></li>
-                <li><a href="<?php echo U('User/updatePassword');?>">修改密码</a></li>
-                <li><a href="<?php echo U('User/updateNickname');?>">修改昵称</a></li>
-                <li><a href="<?php echo U('Public/logout');?>">退出</a></li>
+
+        <div class="hor-menu hor-menu-light hidden-sm hidden-xs">
+
+            <ul class="nav navbar-nav">
+
+                <?php if(is_array($__MENU__["main"])): $i = 0; $__LIST__ = $__MENU__["main"];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$menu): $mod = ($i % 2 );++$i;?><li class="<?php if($menu["class"] == 'current'): ?>classic-menu-dropdown active<?php else: ?>classic-menu-dropdown<?php endif; ?>">
+                    <a href="<?php echo (U($menu["url"])); ?>">
+                        <?php echo ($menu["title"]); ?>
+                        <?php if($menu["class"] == 'current'): ?><span class="selected"></span><?php endif; ?>
+                    </a></li><?php endforeach; endif; else: echo "" ;endif; ?>
+
             </ul>
         </div>
-    </div>
-    <!-- /头部 -->
 
-    <!-- 边栏 -->
-    <div class="sidebar">
-        <!-- 子导航 -->
-        
-            <div id="subnav" class="subnav">
+
+
+
+
+
+        <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+        <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
+        </a>
+        <!-- END RESPONSIVE MENU TOGGLER -->
+        <!-- BEGIN TOP NAVIGATION MENU -->
+        <div class="top-menu">
+            <ul class="nav navbar-nav pull-right">
+
+                <li class="dropdown dropdown-user">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                        <img alt="" class="img-circle hide1" src="/Public/static/assets/admin/layout/img/avatar3_small.jpg"/>
+					<span class="username username-hide-on-mobile">
+					<?php echo session('user_auth.username');?> </span>
+                        <i class="fa fa-angle-down"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="<?php echo U('User/updatePassword');?>">修改密码</a></li>
+                        <li><a href="<?php echo U('User/updateNickname');?>">修改昵称</a></li>
+                    </ul>
+                </li>
+                <!-- END USER LOGIN DROPDOWN -->
+                <!-- BEGIN QUICK SIDEBAR TOGGLER -->
+                <li class="dropdown dropdown-quick-sidebar-toggler">
+                    <a href="<?php echo U('Public/logout');?>" class="dropdown-toggle">
+                        <i class="icon-logout"></i>
+                    </a>
+                </li>
+                <!-- END QUICK SIDEBAR TOGGLER -->
+            </ul>
+        </div>
+        <!-- END TOP NAVIGATION MENU -->
+    </div>
+    <!-- END HEADER INNER -->
+</div>
+
+<!-- END HEADER -->
+<div class="clearfix">
+</div>
+<!-- BEGIN CONTAINER -->
+<div class="page-container">
+    <!-- BEGIN SIDEBAR -->
+    <div class="page-sidebar-wrapper">
+        <!-- DOC: Set data-auto-scroll="false" to disable the sidebar from auto scrolling/focusing -->
+        <!-- DOC: Change data-auto-speed="200" to adjust the sub menu slide up/down speed -->
+        <div class="page-sidebar navbar-collapse collapse">
+            <!-- BEGIN SIDEBAR MENU -->
+            <ul class="page-sidebar-menu" data-auto-scroll="true" data-slide-speed="200">
+                <!-- DOC: To remove the sidebar toggler from the sidebar you just need to completely remove the below "sidebar-toggler-wrapper" LI element -->
+
+
+
+                <li class="sidebar-toggler-wrapper">
+                    <!-- BEGIN SIDEBAR TOGGLER BUTTON -->
+                    <div class="sidebar-toggler">
+                    </div>
+                    <!-- END SIDEBAR TOGGLER BUTTON -->
+                </li>
+                <!-- DOC: To remove the search box from the sidebar you just need to completely remove the below "sidebar-search-wrapper" LI element -->
+                <li class="sidebar-search-wrapper">
+                    <!-- BEGIN RESPONSIVE QUICK SEARCH FORM -->
+                    <!-- DOC: Apply "sidebar-search-bordered" class the below search form to have bordered search box -->
+                    <!-- DOC: Apply "sidebar-search-bordered sidebar-search-solid" class the below search form to have bordered & solid search box -->
+                    <form class="sidebar-search " action="extra_search.html" method="POST">
+                        <a href="javascript:;" class="remove">
+                            <i class="icon-close"></i>
+                        </a>
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search...">
+							<span class="input-group-btn">
+							<a href="javascript:;" class="btn submit"><i class="icon-magnifier"></i></a>
+							</span>
+                        </div>
+                    </form>
+                    <!-- END RESPONSIVE QUICK SEARCH FORM -->
+                </li>
+
+
                 <?php if(!empty($_extra_menu)): ?>
                     <?php echo extra_menu($_extra_menu,$__MENU__); endif; ?>
-                <?php if(is_array($__MENU__["child"])): $i = 0; $__LIST__ = $__MENU__["child"];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$sub_menu): $mod = ($i % 2 );++$i;?><!-- 子导航 -->
-                    <?php if(!empty($sub_menu)): if(!empty($key)): ?><h3><i class="icon icon-unfold"></i><?php echo ($key); ?></h3><?php endif; ?>
-                        <ul class="side-sub-menu">
-                            <?php if(is_array($sub_menu)): $i = 0; $__LIST__ = $sub_menu;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$menu): $mod = ($i % 2 );++$i;?><li>
-                                    <a class="item" href="<?php echo (U($menu["url"])); ?>"><?php echo ($menu["title"]); ?></a>
-                                </li><?php endforeach; endif; else: echo "" ;endif; ?>
-                        </ul><?php endif; ?>
-                    <!-- /子导航 --><?php endforeach; endif; else: echo "" ;endif; ?>
-            </div>
-        
-        <!-- /子导航 -->
-    </div>
-    <!-- /边栏 -->
 
-    <!-- 内容区 -->
-    <div id="main-content">
-        <div id="top-alert" class="fixed alert alert-error" style="display: none;">
-            <button class="close fixed" style="margin-top: 4px;">&times;</button>
-            <div class="alert-content">这是内容</div>
+                <?php if(is_array($__MENU__["child"])): $k = 0; $__LIST__ = $__MENU__["child"];if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$sub_menu): $mod = ($k % 2 );++$k; if(!empty($sub_menu)): if(!empty($key)): $_key = $key; ?>
+                            <li class="<?php if(array_key_exists($key,$__BOOTSTRAPMENU__)): ?>start active open<?php endif; ?>">
+                                <a href="javascript:;">
+
+                                    <span class="title"><?php echo ($key); ?></span>
+
+                                    <?php if(array_key_exists($key,$__BOOTSTRAPMENU__)): ?><span class="arrow open"></span>
+                                        <?php else: ?>
+                                        <span class="arrow"></span><?php endif; ?>
+
+                                </a>
+                                <ul class="sub-menu">
+                                    <?php if(is_array($sub_menu)): $i = 0; $__LIST__ = $sub_menu;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$menu): $mod = ($i % 2 );++$i;?><li class="<?php if($menu["id"] == $__BOOTSTRAPMENU__[$_key]['current']['id']): ?>active<?php endif; ?>">
+                                            <a href="<?php echo (U($menu["url"])); ?>">
+                                                <?php echo ($menu["title"]); ?></a>
+                                        </li><?php endforeach; endif; else: echo "" ;endif; ?>
+                                </ul>
+                            </li><?php endif; endif; endforeach; endif; else: echo "" ;endif; ?>
+
+            </ul>
+            <!-- END SIDEBAR MENU -->
         </div>
-        <div id="main" class="main">
-            
-            <!-- nav -->
-            <?php if(!empty($_show_nav)): ?><div class="breadcrumb">
-                <span>您的位置:</span>
-                <?php $i = '1'; ?>
-                <?php if(is_array($_nav)): foreach($_nav as $k=>$v): if($i == count($_nav)): ?><span><?php echo ($v); ?></span>
-                    <?php else: ?>
-                    <span><a href="<?php echo ($k); ?>"><?php echo ($v); ?></a>&gt;</span><?php endif; ?>
-                    <?php $i = $i+1; endforeach; endif; ?>
-            </div><?php endif; ?>
-            <!-- nav -->
-            
+    </div>
+    <!-- END SIDEBAR -->
+    <!-- BEGIN CONTENT -->
+    <div class="page-content-wrapper">
+        <div class="page-content">
+            <!-- BEGIN SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+            <div class="modal fade" id="portlet-config" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                            <h4 class="modal-title">Modal title</h4>
+                        </div>
+                        <div class="modal-body">
+                            Widget settings form goes here
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn blue">Save changes</button>
+                            <button type="button" class="btn default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+            <!-- /.modal -->
+            <!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
+            <!-- BEGIN STYLE CUSTOMIZER -->
+
+            <div class="theme-panel hidden-xs hidden-sm">
+                <div class="toggler">
+                </div>
+                <div class="toggler-close">
+                </div>
+                <div class="theme-options">
+                    <div class="theme-option theme-colors clearfix">
+						<span>
+						主题颜色 </span>
+                        <ul>
+                            <li class="color-default current tooltips" data-style="default" data-container="body"
+                                data-original-title="Default">
+                            </li>
+                            <li class="color-darkblue tooltips" data-style="darkblue" data-container="body"
+                                data-original-title="Dark Blue">
+                            </li>
+                            <li class="color-blue tooltips" data-style="blue" data-container="body" data-original-title="Blue">
+                            </li>
+                            <li class="color-grey tooltips" data-style="grey" data-container="body" data-original-title="Grey">
+                            </li>
+                            <li class="color-light tooltips" data-style="light" data-container="body" data-original-title="Light">
+                            </li>
+                            <li class="color-light2 tooltips" data-style="light2" data-container="body" data-html="true"
+                                data-original-title="Light 2">
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="theme-option">
+						<span>
+						布局 </span>
+                        <select class="layout-option form-control input-small">
+                            <option value="fluid" selected="selected">不固定</option>
+                            <option value="boxed">盒型</option>
+                        </select>
+                    </div>
+                    <div class="theme-option">
+						<span>
+						头部 </span>
+                        <select class="page-header-option form-control input-small">
+                            <option value="fixed" selected="selected">固定</option>
+                            <option value="default">默认</option>
+                        </select>
+                    </div>
+                    <div class="theme-option">
+						<span>
+						侧边栏模式</span>
+                        <select class="sidebar-option form-control input-small">
+                            <option value="fixed">固定</option>
+                            <option value="default" selected="selected">默认</option>
+                        </select>
+                    </div>
+                    <div class="theme-option">
+						<span>
+						侧边栏菜单 </span>
+                        <select class="sidebar-menu-option form-control input-small">
+                            <option value="accordion" selected="selected">手风琴</option>
+                            <option value="hover">悬停</option>
+                        </select>
+                    </div>
+                    <div class="theme-option">
+						<span>
+						侧边栏样式 </span>
+                        <select class="sidebar-style-option form-control input-small">
+                            <option value="default" selected="selected">默认</option>
+                            <option value="light">顶部</option>
+                        </select>
+                    </div>
+                    <div class="theme-option">
+						<span>
+						边栏位置
+</span>
+                        <select class="sidebar-pos-option form-control input-small">
+                            <option value="left" selected="selected">左</option>
+                            <option value="right">右</option>
+                        </select>
+                    </div>
+                    <div class="theme-option">
+						<span>
+						底部 </span>
+                        <select class="page-footer-option form-control input-small">
+                            <option value="fixed">固定</option>
+                            <option value="default" selected="selected">默认</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- END STYLE CUSTOMIZER -->
+            <!-- BEGIN PAGE HEADER-->
+            <!--<h3 class="page-title">
+                    <?php echo ($__BOOTSTRAPMENU__['_page-bar']['p3']); ?><small><?php echo ($__BOOTSTRAPMENU__['_page-bar']['tip']); ?></small>
+            </h3>-->
+            <div class="page-bar">
+                <ul class="page-breadcrumb">
+                    <li>
+                        <i class="fa fa-home"></i>
+                        <span><?php echo ($__BOOTSTRAPMENU__['_page-bar']['p1']); ?></span>
+                        <i class="fa fa-angle-right"></i>
+                    </li>
+                    <li>
+                        <span><?php echo ($__BOOTSTRAPMENU__['_page-bar']['p2']); ?></span>
+                        <i class="fa fa-angle-right"></i>
+                    </li>
+                    <li>
+                        <span><?php echo ($__BOOTSTRAPMENU__['_page-bar']['p3']); ?></span>
+                    </li>
+                </ul>
+            </div>
+
 
             
 	<script type="text/javascript" src="/Public/static/uploadify/jquery.uploadify.min.js"></script>
 	<div class="main-title">
 		<h2><?php echo isset($info['id'])?'编辑':'新增';?>分类</h2>
 	</div>
-	<div class="tab-wrap">
-		<ul class="tab-nav nav">
-			<li data-tab="tab1" class="current"><a href="javascript:void(0);">基 础</a></li>
-			<li data-tab="tab2"><a href="javascript:void(0);">高 级</a></li>
-		</ul>
-		<div class="tab-content">
-			<form action="<?php echo U();?>" method="post" class="form-horizontal">
-				<!-- 基础 -->
-				<div id="tab1" class="tab-pane in tab1">
-					<div class="form-item">
-						<label class="item-label">上级分类<span class="check-tips"></span></label>
-						<div class="controls">
-							<input type="text" class="text input-large" disabled="disabled" value="<?php echo ((isset($category['title']) && ($category['title'] !== ""))?($category['title']):'无'); ?>"/>
-						</div>
-					</div>
-					<div class="form-item">
-						<label class="item-label">
-							分类名称<span class="check-tips">（名称不能为空）</span>
-						</label>
-						<div class="controls">
-							<input type="text" name="title" class="text input-large" value="<?php echo ((isset($info["title"]) && ($info["title"] !== ""))?($info["title"]):''); ?>">
-						</div>
-					</div>
-					<div class="form-item">
-						<label class="item-label">
-							分类标识<span class="check-tips">（英文字母）</span>
-						</label>
-						<div class="controls">
-							<input type="text" name="name" class="text input-large" value="<?php echo ((isset($info["name"]) && ($info["name"] !== ""))?($info["name"]):''); ?>">
-						</div>
-					</div>
-					<div class="form-item">
-						<label class="item-label">分组定义</label>
-						<div class="controls">
-							<label class="textarea input-large">
-								<textarea name="groups"><?php echo ((isset($info["groups"]) && ($info["groups"] !== ""))?($info["groups"]):''); ?></textarea>
-							</label>
-						</div>
-					</div>
-					<div class="form-item">
-						<label class="item-label">
-							发布内容<span class="check-tips">（是否允许发布内容）</span>
-						</label>
-						<div class="controls">
-							<label class="inline radio"><input type="radio" name="allow_publish" value="0">不允许</label>
-							<label class="inline radio"><input type="radio" name="allow_publish" value="1" checked>仅允许后台</label>
-							<label class="inline radio"><input type="radio" name="allow_publish" value="2" >允许前后台</label>
-						</div>
-					</div>
-					<div class="form-item">
-						<label class="item-label">
-							是否审核<span class="check-tips">（在该分类下发布的内容是否需要审核）</span>
-						</label>
-						<div class="controls">
-							<label class="inline radio"><input type="radio" name="check" value="0" checked>不需要</label>
-							<label class="inline radio"><input type="radio" name="check" value="1">需要</label>
-						</div>
-					</div>
-					<div class="form-item">
-						<label class="item-label">允许文档类型</label>
-						<div class="controls">
-							<?php $_result=C('DOCUMENT_MODEL_TYPE');if(is_array($_result)): $i = 0; $__LIST__ = $_result;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$type): $mod = ($i % 2 );++$i;?><label class="checkbox">
-									<input type="checkbox" name="type[]" value="<?php echo ($key); ?>"><?php echo ($type); ?>
-								</label><?php endforeach; endif; else: echo "" ;endif; ?>
-						</div>
-					</div>
-					<div class="form-item">
-						<label class="item-label">列表绑定文档模型<span class="check-tips">（列表支持发布的文档模型）</span></label>
-						<div class="controls">
-							<?php $_result=get_document_model();if(is_array($_result)): $i = 0; $__LIST__ = $_result;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$list): $mod = ($i % 2 );++$i;?><label class="checkbox">
-									<input type="checkbox" name="model[]" value="<?php echo ($list["id"]); ?>"><?php echo ($list["title"]); ?>
-								</label><?php endforeach; endif; else: echo "" ;endif; ?>
-						</div>
-					</div>
-					<div class="form-item">
-						<label class="item-label">子文档绑定绑定模型<span class="check-tips">（子文档支持发布的文档模型）</span></label>
-						<div class="controls">
-							<?php $_result=get_document_model();if(is_array($_result)): $i = 0; $__LIST__ = $_result;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$list): $mod = ($i % 2 );++$i;?><label class="checkbox">
-									<input type="checkbox" name="model_sub[]" value="<?php echo ($list["id"]); ?>"><?php echo ($list["title"]); ?>
-								</label><?php endforeach; endif; else: echo "" ;endif; ?>
-						</div>
-					</div>
-					<div class="controls">
-						<label class="item-label">分类图标</label>
-						<input type="file" id="upload_picture">
-						<input type="hidden" name="icon" id="icon" value="<?php echo ((isset($info['icon']) && ($info['icon'] !== ""))?($info['icon']):''); ?>"/>
-						<div class="upload-img-box">
-						<?php if(!empty($info['icon'])): ?><div class="upload-pre-item"><img src="<?php echo (get_cover($info["icon"],'path')); ?>"/></div><?php endif; ?>
-						</div>
-					</div>
-					<script type="text/javascript">
-					//上传图片
-				    /* 初始化上传插件 */
-					$("#upload_picture").uploadify({
-				        "height"          : 30,
-				        "swf"             : "/Public/static/uploadify/uploadify.swf",
-				        "fileObjName"     : "download",
-				        "buttonText"      : "上传图片",
-				        "uploader"        : "<?php echo U('File/uploadPicture',array('session_id'=>session_id()));?>",
-				        "width"           : 120,
-				        'removeTimeout'	  : 1,
-				        'fileTypeExts'	  : '*.jpg; *.png; *.gif;',
-				        "onUploadSuccess" : uploadPicture,
-				        'onFallback' : function() {
-				            alert('未检测到兼容版本的Flash.');
-				        }
-				    });
-					function uploadPicture(file, data){
-				    	var data = $.parseJSON(data);
-				    	var src = '';
-				        if(data.status){
-				        	$("#icon").val(data.id);
-				        	src = data.url || '' + data.path;
-				        	$("#icon").parent().find('.upload-img-box').html(
-				        		'<div class="upload-pre-item"><img src="' + src + '"/></div>'
-				        	);
-				        } else {
-				        	updateAlert(data.info);
-				        	setTimeout(function(){
-				                $('#top-alert').find('button').click();
-				                $(that).removeClass('disabled').prop('disabled',false);
-				            },1500);
-				        }
-				    }
-					</script>
-				</div>
 
-				<!-- 高级 -->
-				<div id="tab2" class="tab-pane tab2">
-					<div class="form-item">
-						<label class="item-label">可见性<span class="check-tips">（是否对用户可见，针对前台）</span></label>
-						<div class="controls">
-							<select name="display">
-								<option value="1">所有人可见</option>
-								<option value="0">不可见</option>
-								<option value="2">管理员可见</option>
-							</select>
-						</div>
-					</div>
-					<div class="form-item">
-						<label class="item-label">
-							排序<span class="check-tips">（仅对当前层级分类有效）</span>
-						</label>
-						<div class="controls">
-							<input type="text" name="sort" class="text input-small" value="<?php echo ((isset($info["sort"]) && ($info["sort"] !== ""))?($info["sort"]):0); ?>">
-						</div>
-					</div>
-					<div class="form-item">
-						<label class="item-label">
-							列表行数
-						</label>
-						<div class="controls">
-							<input type="text" name="list_row" class="text input-small" value="<?php echo ((isset($info["list_row"]) && ($info["list_row"] !== ""))?($info["list_row"]):10); ?>">
-						</div>
-					</div>
+	<div class="panel panel-default">
+		<!-- 标签页导航 -->
+		<div class="tab-wrap panel-body">
+			<ul class="nav nav-tabs ">
+				<li data-tab="tab1" class="active"><a href="#tab1" data-toggle="tab" >基 础</a></li>
+				<li data-tab="tab2"><a href="#tab2" data-toggle="tab">高 级</a></li>
+			</ul>
+			<div class="row">
+				<div class="col-lg-6">
+					<!-- 表单 -->
+					<form action="<?php echo U();?>" method="post" class="form doc-modal-form" role="form" >
+						<div class="tab-content panel-body">
+							<!-- 基础 -->
+							<div class="tab-pane fade in active" id="tab1">
+								<div class="form-group">
+									<label class="item-label">上级分类<span class="check-tips"></span></label>
+									<input type="text" class="form-control" disabled="disabled" value="<?php echo ((isset($category['title']) && ($category['title'] !== ""))?($category['title']):'无'); ?>"/>
+								</div>
+								<div class="form-group">
+									<label class="item-label">
+										分类名称<span class="check-tips">（名称不能为空）</span>
+									</label>
+									<input type="text" name="title" class="form-control" value="<?php echo ((isset($info["title"]) && ($info["title"] !== ""))?($info["title"]):''); ?>">
+								</div>
+								<div class="form-group">
+									<label class="item-label">
+										分类标识<span class="check-tips">（英文字母）</span>
+									</label>
+									<input type="text" name="name" class="form-control" value="<?php echo ((isset($info["name"]) && ($info["name"] !== ""))?($info["name"]):''); ?>">
+								</div>
+								<div class="form-group">
+									<label class="item-label">
+										发布内容<span class="check-tips">（是否允许发布内容）</span>
+									</label>
+									<div class="radio-list">
+										<label><input type="radio" name="allow_publish" id="allow_publish" value="0"  >不允许</label>
+										<label><input type="radio" name="allow_publish" id="allow_publish" value="1" checked>仅允许后台</label>
+										<label><input type="radio" name="allow_publish" id="allow_publish" value="2"  >允许前后台</label>
+									</div>
 
-				</div>
 
-				<!-- 高级 -->
-				<div id="tab2" class="tab-pane tab2">
-					<div class="form-item">
-						<label class="item-label">网页标题</label>
-						<div class="controls">
-							<input type="text" name="meta_title" class="text input-large" value="<?php echo ((isset($info["meta_title"]) && ($info["meta_title"] !== ""))?($info["meta_title"]):''); ?>">
-						</div>
-					</div>
-					<div class="form-item">
-						<label class="item-label">关键字</label>
-						<div class="controls">
-							<label class="textarea input-large">
-								<textarea name="keywords"><?php echo ((isset($info["keywords"]) && ($info["keywords"] !== ""))?($info["keywords"]):''); ?></textarea>
-							</label>
-						</div>
-					</div>
-					<div class="form-item">
-						<label class="item-label">描述</label>
-						<div class="controls">
-							<label class="textarea input-large">
-								<textarea name="description"><?php echo ((isset($info["description"]) && ($info["description"] !== ""))?($info["description"]):''); ?></textarea>
-							</label>
-						</div>
-					</div>
-					<div class="form-item">
-						<label class="item-label">频道模板</label>
-						<div class="controls">
-							<input type="text" name="template_index" class="text input-large" value="<?php echo ((isset($info["template_index"]) && ($info["template_index"] !== ""))?($info["template_index"]):''); ?>">
-						</div>
-					</div>
-					<div class="form-item">
-						<label class="item-label">列表模板</label>
-						<div class="controls">
-							<input type="text" name="template_lists" class="text input-large" value="<?php echo ((isset($info["template_lists"]) && ($info["template_lists"] !== ""))?($info["template_lists"]):''); ?>">
-						</div>
-					</div>
-					<div class="form-item">
-						<label class="item-label">详情模板</label>
-						<div class="controls">
-							<input type="text" name="template_detail" class="text input-large" value="<?php echo ((isset($info["template_detail"]) && ($info["template_detail"] !== ""))?($info["template_detail"]):''); ?>">
-						</div>
-					</div>
-					<div class="form-item">
-						<label class="item-label">编辑模板</label>
-						<div class="controls">
-							<input type="text" name="template_edit" class="text input-large" value="<?php echo ((isset($info["template_edit"]) && ($info["template_edit"] !== ""))?($info["template_edit"]):''); ?>">
-						</div>
-					</div>
-				</div>
 
-				<div class="form-item">
-					<input type="hidden" name="id" value="<?php echo ((isset($info["id"]) && ($info["id"] !== ""))?($info["id"]):''); ?>">
-					<input type="hidden" name="pid" value="<?php echo isset($category['id'])?$category['id']:$info['pid'];?>">
-					<button type="submit" id="submit" class="btn submit-btn ajax-post" target-form="form-horizontal">确 定</button>
-					<button class="btn btn-return" onclick="javascript:history.back(-1);return false;">返 回</button>
+								</div>
+								<div class="form-group">
+									<label class="item-label">
+										是否审核<span class="check-tips">（在该分类下发布的内容是否需要审核）</span>
+									</label>
+									<div class="radio-list">
+										<label><input type="radio" name="check" id="check" value="0"  >不需要</label>
+										<label><input type="radio" name="check" id="check" value="1" checked>需要</label>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="item-label">绑定文档模型<span class="check-tips">（分类支持发布的文档模型）</span></label>
+									<?php $_result=get_document_model();if(is_array($_result)): $i = 0; $__LIST__ = $_result;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$list): $mod = ($i % 2 );++$i;?><label class="checkbox">
+											<input type="checkbox" name="model[]" value="<?php echo ($list["id"]); ?>"><?php echo ($list["title"]); ?>
+										</label><?php endforeach; endif; else: echo "" ;endif; ?>
+								</div>
+								<div class="form-group">
+									<label class="item-label">允许文档类型</label>
+									<?php $_result=C('DOCUMENT_MODEL_TYPE');if(is_array($_result)): $i = 0; $__LIST__ = $_result;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$type): $mod = ($i % 2 );++$i;?><label class="checkbox">
+											<input type="checkbox" name="type[]" value="<?php echo ($key); ?>"><?php echo ($type); ?>
+										</label><?php endforeach; endif; else: echo "" ;endif; ?>
+								</div>
+								<div class="form-group">
+									<label class="item-label">分类图标</label>
+									<input type="file" id="upload_picture" class="btn btn-default btn-default">
+									<input type="hidden" name="icon" id="icon" value="<?php echo ((isset($info['icon']) && ($info['icon'] !== ""))?($info['icon']):''); ?>"/>
+									<div class="upload-img-box">
+										<?php if(!empty($info['icon'])): ?><div class="upload-pre-item"><img src="<?php echo (get_cover($info["icon"],'path')); ?>"/></div><?php endif; ?>
+									</div>
+								</div>
+
+								<script type="text/javascript">
+									//上传图片
+									/* 初始化上传插件 */
+									$("#upload_picture").uploadify({
+										"height"          : 30,
+										"swf"             : "/Public/static/uploadify/uploadify.swf",
+										"fileObjName"     : "download",
+										"buttonText"      : "上传图片",
+										"uploader"        : "<?php echo U('File/uploadPicture',array('session_id'=>session_id()));?>",
+										"width"           : 120,
+										'removeTimeout'	  : 1,
+										'fileTypeExts'	  : '*.jpg; *.png; *.gif;',
+										"onUploadSuccess" : uploadPicture,
+										'onFallback' : function() {
+											alert('未检测到兼容版本的Flash.');
+										}
+									});
+									function uploadPicture(file, data){
+										var data = $.parseJSON(data);
+										var src = '';
+										if(data.status){
+											$("#icon").val(data.id);
+											src = data.url || '' + data.path;
+											$("#icon").parent().find('.upload-img-box').html(
+													'<div class="upload-pre-item"><img src="' + src + '"/></div>'
+											);
+										} else {
+											updateAlert(data.info);
+											setTimeout(function(){
+												//$('#top-alert').find('button').click();
+												$(that).removeClass('disabled').prop('disabled',false);
+											},1500);
+										}
+									}
+								</script>
+							</div>
+
+							<!-- 高级 -->
+							<div id="tab2" class="tab-pane  fade tab2">
+								<div class="form-group">
+									<label class="item-label">网页标题</label>
+
+									<input type="text" name="meta_title" class="form-control" value="<?php echo ((isset($info["meta_title"]) && ($info["meta_title"] !== ""))?($info["meta_title"]):''); ?>">
+
+								</div>
+								<div class="form-group">
+									<label class="item-label">关键字</label>
+
+
+									<textarea name="keywords" class="form-control" ><?php echo ((isset($info["keywords"]) && ($info["keywords"] !== ""))?($info["keywords"]):''); ?></textarea>
+
+
+								</div>
+								<div class="form-group">
+									<label class="item-label">描述</label>
+
+
+									<textarea name="description" class="form-control" ><?php echo ((isset($info["description"]) && ($info["description"] !== ""))?($info["description"]):''); ?></textarea>
+
+
+								</div>
+								<div class="form-group">
+									<label class="item-label">频道模板</label>
+
+									<input type="text" name="template_index" class="form-control" value="<?php echo ((isset($info["template_index"]) && ($info["template_index"] !== ""))?($info["template_index"]):''); ?>">
+
+								</div>
+								<div class="form-group">
+									<label class="item-label">列表模板</label>
+
+									<input type="text" name="template_lists" class="form-control" value="<?php echo ((isset($info["template_lists"]) && ($info["template_lists"] !== ""))?($info["template_lists"]):''); ?>">
+
+								</div>
+								<div class="form-group">
+									<label class="item-label">详情模板</label>
+
+									<input type="text" name="template_detail" class="form-control" value="<?php echo ((isset($info["template_detail"]) && ($info["template_detail"] !== ""))?($info["template_detail"]):''); ?>">
+
+								</div>
+								<div class="form-group">
+									<label class="item-label">编辑模板</label>
+
+									<input type="text" name="template_edit" class="form-control" value="<?php echo ((isset($info["template_edit"]) && ($info["template_edit"] !== ""))?($info["template_edit"]):''); ?>">
+
+								</div>
+							</div>
+
+
+
+							<div class="form-group">
+								<input type="hidden" name="id" value="<?php echo ((isset($info["id"]) && ($info["id"] !== ""))?($info["id"]):''); ?>">
+								<input type="hidden" name="pid" value="<?php echo isset($category['id'])?$category['id']:$info['pid'];?>">
+								<button type="submit" id="submit" class="btn btn-default submit-btn ajax-post" target-form="form">确 定</button>
+								<button class="btn btn-default btn-return" onclick="javascript:history.back(-1);return false;">返 回</button>
+							</div>
+						</div>
 				</div>
-			</form>
-		</div>
+				</form>
+			</div><!--  /div class="col-lg-6" -->
+		</div><!-- /row -->
 	</div>
+	</div><!-- /panel-body -->
 
-        </div>
-        <div class="cont-ft">
-            <div class="copyright">
-                <div class="fl">感谢使用<a href="http://www.onethink.cn" target="_blank">OneThink</a>管理平台</div>
-                <div class="fr">V<?php echo (ONETHINK_VERSION); ?></div>
-            </div>
+
+
         </div>
     </div>
-    <!-- /内容区 -->
-    <script type="text/javascript">
-    (function(){
-        var ThinkPHP = window.Think = {
-            "ROOT"   : "", //当前网站地址
-            "APP"    : "/admin.php?s=", //当前项目地址
-            "PUBLIC" : "/Public", //项目公共目录地址
-            "DEEP"   : "<?php echo C('URL_PATHINFO_DEPR');?>", //PATHINFO分割符
-            "MODEL"  : ["<?php echo C('URL_MODEL');?>", "<?php echo C('URL_CASE_INSENSITIVE');?>", "<?php echo C('URL_HTML_SUFFIX');?>"],
-            "VAR"    : ["<?php echo C('VAR_MODULE');?>", "<?php echo C('VAR_CONTROLLER');?>", "<?php echo C('VAR_ACTION');?>"]
-        }
-    })();
-    </script>
-    <script type="text/javascript" src="/Public/static/think.js"></script>
-    <script type="text/javascript" src="/Public/Admin/js/common.js"></script>
-    <script type="text/javascript">
-        +function(){
-            var $window = $(window), $subnav = $("#subnav"), url;
-            $window.resize(function(){
-                $("#main").css("min-height", $window.height() - 130);
-            }).resize();
+    <!-- END CONTENT -->
 
-            /* 左边菜单高亮 */
-            url = window.location.pathname + window.location.search;
-            url = url.replace(/(\/(p)\/\d+)|(&p=\d+)|(\/(id)\/\d+)|(&id=\d+)|(\/(group)\/\d+)|(&group=\d+)/, "");
-            $subnav.find("a[href='" + url + "']").parent().addClass("current");
+</div>
+<!-- END CONTAINER -->
+<!-- BEGIN FOOTER -->
+<div class="page-footer">
+    <div class="page-footer-inner">
+        2014 &copy; Metronic by keenthemes.
+    </div>
+    <div class="page-footer-tools">
+		<span class="go-top">
+		<i class="fa fa-angle-up"></i>
+		</span>
+    </div>
+</div>
 
-            /* 左边菜单显示收起 */
-            $("#subnav").on("click", "h3", function(){
-                var $this = $(this);
-                $this.find(".icon").toggleClass("icon-fold");
-                $this.next().slideToggle("fast").siblings(".side-sub-menu:visible").
-                      prev("h3").find("i").addClass("icon-fold").end().end().hide();
-            });
 
-            $("#subnav h3 a").click(function(e){e.stopPropagation()});
 
-            /* 头部管理员菜单 */
-            $(".user-bar").mouseenter(function(){
-                var userMenu = $(this).children(".user-menu ");
-                userMenu.removeClass("hidden");
-                clearTimeout(userMenu.data("timeout"));
-            }).mouseleave(function(){
-                var userMenu = $(this).children(".user-menu");
-                userMenu.data("timeout") && clearTimeout(userMenu.data("timeout"));
-                userMenu.data("timeout", setTimeout(function(){userMenu.addClass("hidden")}, 100));
-            });
+<script src="/Public/static/assets/global/plugins/pace/pace.min.js" type="text/javascript"></script>
 
-	        /* 表单获取焦点变色 */
-	        $("form").on("focus", "input", function(){
-		        $(this).addClass('focus');
-	        }).on("blur","input",function(){
-				        $(this).removeClass('focus');
-			        });
-		    $("form").on("focus", "textarea", function(){
-			    $(this).closest('label').addClass('focus');
-		    }).on("blur","textarea",function(){
-			    $(this).closest('label').removeClass('focus');
-		    });
+<!-- END FOOTER -->
+<!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+<!-- BEGIN CORE PLUGINS -->
+<!--[if lt IE 9]>
+<script src="/Public/static/assets/global/plugins/respond.min.js"></script>
+<script src="/Public/static/assets/global/plugins/excanvas.min.js"></script>
+<![endif]-->
+<script src="/Public/static/assets/global/plugins/jquery-1.11.0.min.js" type="text/javascript"></script>
+<script src="/Public/static/assets/global/plugins/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
+<!-- IMPORTANT! Load jquery-ui-1.10.3.custom.min.js before bootstrap.min.js to fix bootstrap tooltip conflict with jquery ui tooltip -->
+<script src="/Public/static/assets/global/plugins/jquery-ui/jquery-ui-1.10.3.custom.min.js" type="text/javascript"></script>
+<script src="/Public/static/assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="/Public/static/assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+<script src="/Public/static/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+<script src="/Public/static/assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+<script src="/Public/static/assets/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
+<script src="/Public/static/assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+<script src="/Public/static/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+<!-- END CORE PLUGINS -->
+<!-- BEGIN PAGE LEVEL PLUGINS -->
+<script src="/Public/static/assets/global/plugins/flot/jquery.flot.min.js" type="text/javascript"></script>
+<script src="/Public/static/assets/global/plugins/flot/jquery.flot.resize.min.js" type="text/javascript"></script>
+<script src="/Public/static/assets/global/plugins/flot/jquery.flot.categories.min.js" type="text/javascript"></script>
+<script src="/Public/static/assets/global/plugins/jquery.pulsate.min.js" type="text/javascript"></script>
+<script src="/Public/static/assets/global/plugins/bootstrap-daterangepicker/moment.min.js" type="text/javascript"></script>
+<script src="/Public/static/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.js" type="text/javascript"></script>
+<!-- IMPORTANT! fullcalendar depends on jquery-ui-1.10.3.custom.min.js for drag & drop support -->
+<script src="/Public/static/assets/global/plugins/fullcalendar/fullcalendar/fullcalendar.min.js" type="text/javascript"></script>
+<script src="/Public/static/assets/global/plugins/jquery-easypiechart/jquery.easypiechart.min.js" type="text/javascript"></script>
+<script src="/Public/static/assets/global/plugins/jquery.sparkline.min.js" type="text/javascript"></script>
+<script src="/Public/static/assets/global/plugins/gritter/js/jquery.gritter.js" type="text/javascript"></script>
+<!-- END PAGE LEVEL PLUGINS -->
+<!-- BEGIN PAGE LEVEL SCRIPTS -->
 
-            // 导航栏超出窗口高度后的模拟滚动条
-            var sHeight = $(".sidebar").height();
-            var subHeight  = $(".subnav").height();
-            var diff = subHeight - sHeight; //250
-            var sub = $(".subnav");
-            if(diff > 0){
-                $(window).mousewheel(function(event, delta){
-                    if(delta>0){
-                        if(parseInt(sub.css('marginTop'))>-10){
-                            sub.css('marginTop','0px');
-                        }else{
-                            sub.css('marginTop','+='+10);
-                        }
-                    }else{
-                        if(parseInt(sub.css('marginTop'))<'-'+(diff-10)){
-                            sub.css('marginTop','-'+(diff-10));
-                        }else{
-                            sub.css('marginTop','-='+10);
-                        }
-                    }
-                });
-            }
-        }();
-    </script>
-    
+<script src="/Public/static/assets/global/scripts/metronic.js" type="text/javascript"></script>
+<script src="/Public/static/assets/admin/layout/scripts/layout.js" type="text/javascript"></script>
+<script src="/Public/static/assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
+<script src="/Public/static/assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
+<script src="/Public/static/assets/admin/pages/scripts/index.js" type="text/javascript"></script>
+<script src="/Public/static/assets/admin/pages/scripts/tasks.js" type="text/javascript"></script>
+<script src="/Public/static/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+
+<!-- END PAGE LEVEL SCRIPTS -->
+
+<!--Table-->
+<script type="text/javascript">
+(function(){
+	var ThinkPHP = window.Think = {
+		"ROOT"   : "", //当前网站地址
+		"APP"    : "/admin.php?s=", //当前项目地址
+		"PUBLIC" : "/Public", //项目公共目录地址
+		"DEEP"   : "<?php echo C('URL_PATHINFO_DEPR');?>", //PATHINFO分割符
+		"MODEL"  : ["<?php echo C('URL_MODEL');?>", "<?php echo C('URL_CASE_INSENSITIVE');?>", "<?php echo C('URL_HTML_SUFFIX');?>"],
+		"VAR"    : ["<?php echo C('VAR_MODULE');?>", "<?php echo C('VAR_CONTROLLER');?>", "<?php echo C('VAR_ACTION');?>"]
+	}
+})();
+</script>
+<script type="text/javascript" src="/Public/static/think.js"></script>
+<script type="text/javascript" src="/Public/static/think_ajax.js"></script>
+
+<script type="text/javascript" src="/Public/static/assets/global/plugins/datatables/media/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="/Public/static/assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
+
+<!--Table END-->
+
+<!--Plug-->
+<script type="text/javascript" src="/Public/static/Validform_v5.3.2_ncr_min.js"></script>
+<script type="text/javascript" src="/Public/static/layer/layer.js"></script>
+
+<!--Plug END-->
+
+<script>
+    jQuery(document).ready(function() {
+        Metronic.init(); // init metronic core componets
+        Layout.init(); // init layout
+        Demo.init(); // init demo features
+
+    });
+</script>
+
+
+
 	<script type="text/javascript">
 		<?php if(isset($info["id"])): ?>Think.setValue("allow_publish", <?php echo ((isset($info["allow_publish"]) && ($info["allow_publish"] !== ""))?($info["allow_publish"]):1); ?>);
 		Think.setValue("check", <?php echo ((isset($info["check"]) && ($info["check"] !== ""))?($info["check"]):0); ?>);
 		Think.setValue("model[]", <?php echo (json_encode($info["model"])); ?> || [1]);
-		Think.setValue("model_sub[]", <?php echo (json_encode($info["model_sub"])); ?> || [1]);
 		Think.setValue("type[]", <?php echo (json_encode($info["type"])); ?> || [2]);
 		Think.setValue("display", <?php echo ((isset($info["display"]) && ($info["display"] !== ""))?($info["display"]):1); ?>);
 		Think.setValue("reply", <?php echo ((isset($info["reply"]) && ($info["reply"] !== ""))?($info["reply"]):0); ?>);
@@ -420,5 +632,8 @@
 		highlight_subnav('<?php echo U('Category/index');?>');
 	</script>
 
+
 </body>
+
+<!-- END BODY -->
 </html>

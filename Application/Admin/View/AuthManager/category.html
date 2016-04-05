@@ -28,9 +28,9 @@
                             <input type="hidden" name="group_id" value="{:I('group_id')}">
                             <!--   分类管理/分类授权 树形菜单（支持多级）  --------------------------------------   -->
                             <div class="tree  category auth-category">
-                                <ul>
-                                    {:R('AuthManager/tree', array($group_list))}
-                                </ul>
+                                <input type="hidden" class="cate_id" name="cid[]" value="">
+                                <div id="tree_2" class="tree-demo">
+                                </div>
                                 <hr/>
                                 <div class="tb-unit-bar">
                                     <button class="btn green submit-btn ajax-post" type="submit" target-form="save-category">确 定</button>
@@ -46,27 +46,44 @@
 </block>
 
 <block name="style">
-    <load href="__STATIC__/tree/tree.css" />
+    <load href="__STATIC__/assets/global/plugins/jstree/dist/themes/default/style.min.css" />
 </block>
 
-<block name="script">
-    <load href="__STATIC__/tree/tree.js" />
-</block>
 
 <block name="script">
-<script type="text/javascript">
-    +function($){
-        var auth_groups = [{$authed_group}];
-        $('.cate_id').each(function(){
-            if( $.inArray( parseInt(this.value,10),auth_groups )>-1 ){
-                $(this).prop('checked',true);
-                $(this).parent("span").addClass("checked");
-            }
-        });
-        $('select[name=group]').change(function(){
-            location.href = this.value;
-        });
-    }(jQuery);
-    //导航高亮
-</script>
+    <script src="__STATIC__/assets/global/plugins/jstree/dist/jstree.min.js"></script>
+    <script type="text/javascript">
+        +function($){
+
+            $('#tree_2').jstree({
+                "plugins" : [ "contextmenu","state", "types" ],
+                'core': {
+                    "themes" : {
+                        "responsive": false
+                    },
+                    'data': {:R('AuthManager/tree', array(array('group_list'=>$group_list,'authed_group'=>$authed_group)))}
+                },
+                "types" : {
+                    "default" : {
+                        "icon" : "fa fa-folder icon-state-warning icon-lg"
+                    },
+                }
+            });
+
+            $('#tree_2').on('changed.jstree', function(e, data) {
+                r = [];
+                var i, j;
+                for (i = 0, j = data.selected.length; i < j; i++) {
+                    var node = data.instance.get_node(data.selected[i]);
+                    if (data.instance.is_leaf(node)) {
+                        r.push(node.id);
+                    }
+                }
+                console.log(r)
+                $(".cate_id").val(r)
+            })
+
+        }(jQuery);
+        //导航高亮
+    </script>
 </block>

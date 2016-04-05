@@ -1017,3 +1017,4 @@ function check_category_model($info){
     $array  =   explode(',', $info['pid'] ? $cate['model_sub'] : $cate['model']);
     return in_array($info['model_id'], $array);
 }
+

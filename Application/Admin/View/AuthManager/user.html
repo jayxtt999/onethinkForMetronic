@@ -36,9 +36,15 @@
 
 								<div id="add-to-group" class="input-group input-medium pull-right clearfix ">
 									<form  action="{:U('addToGroup')}" method="post" enctype="application/x-www-form-urlencoded"  class="form " role="form" >
-										<input class="text  form-control " type="text" name="uid" placeholder="请输入uid,多个用英文逗号分隔">
+										<div class="row">
+											<div class="input-group">
+										<input class="text  form-control" type="text" name="uid" placeholder="请输入uid,多个用英文逗号分隔">
 										<input type="hidden" name="group_id" value="{:I('group_id')}">
-											<span class="input-group-btn"><button type="submit" class="btn blue ajax-post pull-right clearfix" target-form="form">新 增</button></span>
+											<span class="input-group-btn">
+												<button type="button" class="btn blue ajax-post" target-form="form">新 增</button>
+											</span>
+											</div>
+										</div>
 									</form>
 								</div>
 							</div>

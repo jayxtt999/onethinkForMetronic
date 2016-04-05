@@ -42,7 +42,9 @@
 <!-- END THEME STYLES -->
 <link href="/Public/favicon.ico" type="image/x-icon" rel="shortcut icon">
 
-<!-- 用于加载 css 代码 -->
+
+	<link rel="stylesheet" type="text/css" href="/Public/static/assets/global/plugins/jstree/dist/themes/default/style.min.css" />
+
 <!-- 页面header钩子，一般用于加载插件CSS文件和代码 -->
 <?php echo hook('pageHeader');?>
 
@@ -329,23 +331,14 @@
 	<div class="main-title">
 		<h2>分类管理</h2>
 	</div>
-
-	<!-- 表格列表 -->
-	<div class="tb-unit posr">
-		<div class="tb-unit-bar">
-			<a class="btn" href="<?php echo U('add');?>">新 增</a>
-		</div>
-		<div class="category">
-			<div class="hd cf">
-				<div class="fold">折叠</div>
-				<div class="order">排序</div>
-				<div class="order">发布</div>
-				<div class="name">名称</div>
-			</div>
-			<?php echo R('Category/tree', array($tree));?>
+	<!-- 树型结构===== -->
+	<div class="tree well">
+		<a class="btn green" href="<?php echo U('add');?>">新增分类</a>
+		<hr/>
+		<div id="category_tree">
 		</div>
 	</div>
-	<!-- /表格列表 -->
+	<!-- /树型结构 -->
 
 
 
@@ -453,58 +446,78 @@
 
 
 
+	<script src="/Public/static/assets/global/plugins/jstree/dist/jstree.min.js"></script>
 	<script type="text/javascript">
-		(function($){
-			/* 分类展开收起 */
-			$(".category dd").prev().find(".fold i").addClass("icon-unfold")
-				.click(function(){
-					var self = $(this);
-					if(self.hasClass("icon-unfold")){
-						self.closest("dt").next().slideUp("fast", function(){
-							self.removeClass("icon-unfold").addClass("icon-fold");
-						});
-					} else {
-						self.closest("dt").next().slideDown("fast", function(){
-							self.removeClass("icon-fold").addClass("icon-unfold");
-						});
+		//添加 编辑 禁用 删除 移动 合并
+		function customMenu(node) {
+		var d = $(node).attr("data");
+		var items = {
+				addItem: {
+					label: d.addTitle,
+					action: function (z) {
+						window.location.href = d.addUrl
 					}
-				});
+				},
+				editItem: {
+					label: d.ediTitle,
+					action: function () {
+						window.location.href = d.editUrl
+					}
+				},
+				setStatusItem: {
+					label: d.statusTitle,
+					action: function () {
+						window.location.href = d.statusUrl
+					}
+				},
+				deleteItem: {
+					label: d.removeTitle,
+					action: function () {
+						if(confirm("确认删除?")){
+							window.location.href = d.removeUrl
+						}
+						return false;
+					}
+				},
+				moverItem: {
+					label: d.moveTitle,
+					action: function () {
+						window.location.href = d.moveUrl
+					}
+				},
+				mergeItem: {
+					label: d.mergeTitle,
+					action: function () {
+						window.location.href = d.mergeUrl
+					}
+				}
 
-			/* 三级分类删除新增按钮 */
-			$(".category dd dd .add-sub").remove();
+			};
+			return items;
+		}
 
-			/* 实时更新分类信息 */
-			$(".category")
-				.on("submit", "form", function(){
-					var self = $(this);
-					$.post(
-						self.attr("action"),
-						self.serialize(),
-						function(data){
-							/* 提示信息 */
-							var name = data.status ? "success" : "error", msg;
-							msg = self.find(".msg").addClass(name).text(data.info)
-									  .css("display", "inline-block");
-							setTimeout(function(){
-								msg.fadeOut(function(){
-									msg.text("").removeClass(name);
-								});
-							}, 1000);
-						},
-						"json"
-					);
-					return false;
-				})
-                .on("focus","input",function(){
-                    $(this).data('param',$(this).closest("form").serialize());
+		+function($){
 
-                })
-                .on("blur", "input", function(){
-                    if($(this).data('param')!=$(this).closest("form").serialize()){
-                        $(this).closest("form").submit();
-                    }
-                });
-		})(jQuery);
+			$('#category_tree').jstree({
+				"plugins" : [ "contextmenu","state", "types" ],
+				contextmenu: {items: customMenu},
+				'core': {
+					"themes" : {
+						"responsive": false
+					},
+					'data': <?php echo R('Category/tree', array('tree'=>$tree));?>
+		},
+			"types" : {
+				"default" : {
+					"icon" : "fa fa-folder icon-state-warning icon-lg"
+				},
+			}
+		});
+
+
+
+		}(jQuery);
+		//导航高亮
 	</script>
 
 

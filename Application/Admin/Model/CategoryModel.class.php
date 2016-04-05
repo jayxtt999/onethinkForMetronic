@@ -73,7 +73,6 @@ class CategoryModel extends Model{
             $info = $this->info($id);
             $id   = $info['id'];
         }
-
         /* 获取所有分类 */
         $map  = array('status' => array('gt', -1));
         $list = $this->field($field)->where($map)->order('sort')->select();
@@ -85,7 +84,6 @@ class CategoryModel extends Model{
         } else { //否则返回所有分类
             $info = $list;
         }
-
         return $info;
     }
 
