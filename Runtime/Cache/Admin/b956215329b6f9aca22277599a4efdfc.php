@@ -519,7 +519,7 @@
 
     <script type="text/javascript">
         $(function() {
-            crateDataTable($('#dataTables-menu'))
+            createDataTable($('#dataTables-menu'))
             //新增
             $("#add-menu").click(function(){
                 window.location.href = $(this).attr('url');

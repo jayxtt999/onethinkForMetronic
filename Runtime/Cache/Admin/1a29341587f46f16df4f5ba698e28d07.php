@@ -508,12 +508,10 @@
 		$(function() {
 
 			createDataTable($('#dataTables-channel'))
-
 			//新增
 			$("#add-channel").click(function(){
 				window.location.href = $(this).attr('url');
 			})
-
 			//点击排序
 			$('.list_sort').click(function(){
 				var url = $(this).attr('url');

@@ -63,6 +63,7 @@ class AdminController extends Controller {
         }
 
         $menus = $this->getMenus();
+
         $this->assign('__MENU__', $menus);
         $this->assign('__BOOTSTRAPMENU__', $this->getBootstrapMenu($menus));
 
@@ -482,7 +483,8 @@ class AdminController extends Controller {
         }
         foreach($menu['child'] as $k=>$child){
             foreach($child as $v){
-                if($v['url'] == CONTROLLER_NAME."/".ACTION_NAME){
+                $current = $this->getCurrentRout();
+                if(($v['url'] == CONTROLLER_NAME."/".ACTION_NAME) || ($v['id'] == $current['pid'])){
                     $bootstrapMenu[$k]["current"] = $v;
                     $arr['p2'] = $k;
                     $arr['p3'] = $v['title'];
@@ -490,8 +492,19 @@ class AdminController extends Controller {
                 }
             }
         }
+
         $bootstrapMenu['_page-bar'] = $arr;
         return $bootstrapMenu;
     }
 
+
+    public function getCurrentRout(){
+
+        return M("menu")->where(array("url"=>CONTROLLER_NAME."/".ACTION_NAME))->find();
+
+
+    }
+
 }
+
+

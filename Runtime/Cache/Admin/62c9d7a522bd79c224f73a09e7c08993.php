@@ -508,25 +508,7 @@
 	<script type="text/javascript">
 		$(function(){
 
-			var table = $('#dataTables-model');
-			table.dataTable();
-			table.find('.group-checkable').change(function () {
-				var set = jQuery(this).attr("data-set");
-				var checked = jQuery(this).is(":checked");
-				jQuery(set).each(function () {
-					if (checked) {
-						$(this).attr("checked", true);
-						$(this).parents('tr').addClass("active");
-					} else {
-						$(this).attr("checked", false);
-						$(this).parents('tr').removeClass("active");
-					}
-				});
-				jQuery.uniform.update(set);
-			});
-			table.on('change', 'tbody tr .checkboxes', function () {
-				$(this).parents('tr').toggleClass("active");
-			});
+			createDataTable($('#dataTables-model'))
 
 			$("#model_add").click(function(){
 				window.location.href = $(this).attr('url');

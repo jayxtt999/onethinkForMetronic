@@ -153,12 +153,12 @@
 											<div class="tab-wrap">
 											<ul class="nav nav-tabs">
 												<volist name="form.options" id="li">
-													<li data-tab="tab{$i}" <eq name="i" value="1">class="current"</eq>><a href="javascript:void(0);">{$li.title}</a></li>
+													<li data-tab="tab{$i}" <eq name="i" value="1">class="active"</eq>><a href="#tab{$i}" data-toggle="tab">{$li.title}</a></li>
 												</volist>
 											</ul>
 											<div class="tab-content panel-body">
 												<volist name="form.options" id="tab">
-													<div id="tab{$i}" class="tab-pane <eq name="i" value="1">in</eq> tab{$i}">
+													<div id="tab{$i}" class="tab-pane <eq name="i" value="1">active</eq> " id="tab{$i}">
 													<foreach name="tab['options']" item="tab_form" key="o_tab_key">
 														<label class="item-label">
 															{$tab_form.title|default=''}
@@ -274,9 +274,9 @@
 															</switch>
 														</div>
 													</foreach>
+													</div>
+												</volist>
 											</div>
-											</div>
-											</volist>
 								</div>
 								</case>
 								</switch>
@@ -292,7 +292,6 @@
 				<button type="submit" class="btn submit-btn ajax-post" target-form="form-horizontal">确 定</button>
 				<button class="btn btn-return" onclick="javascript:history.back(-1);return false;">返 回</button>
 				</div>
-
 					</form>
 				</div>
 			</div>

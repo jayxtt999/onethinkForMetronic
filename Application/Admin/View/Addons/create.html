@@ -44,6 +44,7 @@
 								<input type="text" class="text input-large form-control" name="info[name]" value="Example">
 							</div>
 						</div>
+
 						<div class="form-group">
 							<label class="item-label">插件名<span class="check-tips">（请输入插件名）</span></label>
 							<div class="controls">
@@ -64,26 +65,19 @@
 						</div>
 						<div class="form-group">
 							<label class="item-label">描述<span class="check-tips">（请输入描述）</span></label>
-							<div class="controls">
-								<label class="textarea input-large">
-									<textarea name="info[description]">这是一个临时描述</textarea>
-								</label>
+								<textarea name="info[description]" class="form-control" rows="5">这是一个临时描述</textarea>
 							</div>
-						</div>
 						<div class="form-group">
-							<label class="item-label">安装后是否启用</label>
-							<div class="controls">
-								<label class="checkbox">
-									<input type="checkbox" name="info[status]" value="1" checked />
-								</label>
-							</div>
+								<label class="item-label">安装后是否启用</label>
+								<input type="checkbox" name="info[status]"  value="1" checked>
 						</div>
 						<div class="form-group">
 							<label class="item-label">是否需要配置</label>
-							<div class="controls">
-								<label class="checkbox"><input type="checkbox" id="has_config" name="has_config" value="1" /></label>
-								<label class="textarea input-large has_config hidden">
-					<textarea class="textarea" name="config">
+							<input type="checkbox" id="has_config" name="has_config" value="1" />
+						</div>
+					<div class="form-group has_config hidden">
+
+					<textarea  name="config" class="textarea form-control" rows="5">
 &lt;?php
 return array(
 	'random'=>array(//配置在表单中的键名 ,这个会是config[random]
@@ -97,11 +91,9 @@ return array(
 	),
 );
 					</textarea>
-								</label>
-								<input type="text" class="text input-large form-control has_config hidden" name="custom_config">
-								<span class="check-tips has_config hidden">自定义模板,注意：自定义模板里的表单name必须为config[name]这种，获取保存后配置的值用$data.config.name</span>
-							</div>
-						</div>
+						<input type="text" class="text input-large form-control has_config hidden" name="custom_config">
+						<span class="check-tips has_config hidden">自定义模板,注意：自定义模板里的表单name必须为config[name]这种，获取保存后配置的值用$data.config.name</span>
+					</div>
 						<div class="form-group">
 							<div class="controls">
 								<label class="item-label">是否需要外部访问</label>
@@ -125,7 +117,7 @@ return array(
 									<input type="checkbox" id="has_adminlist" name="has_adminlist" value="1" />勾选，扩展里已装插件后台列表会出现插件名的列表菜单，如系统的附件
 								</label>
 								<label class="textarea input-large has_adminlist hidden">
-					<textarea name="admin_list">
+					<textarea name="admin_list" class="form-control" rows="5">
 'model'=>'Example',		//要查的表
 			'fields'=>'*',			//要查的字段
 			'map'=>'',				//查询条件, 如果需要可以再插件类的构造方法里动态重置这个属性
@@ -140,17 +132,16 @@ return array(
             ),
 					</textarea>
 								</label>
-								<input type="text" class="text has_adminlist hidden" name="custom_adminlist">
+								<input type="text" class="text has_adminlist hidden form-control" name="custom_adminlist">
 								<span class="check-tips block has_adminlist hidden">自定义模板,注意：自定义模板里的列表变量为$_list这种,遍历后可以用listkey可以控制表头显示,也可以完全手写，分页变量用$_page</span>
 							</div>
 						</div>
-
-					</div>
 					<div class="form-actions">
 						<button class="btn green btn-return" type="button" id="preview">预 览</button>
 						<button class="btn blue ajax-post_custom submit-btn" target-form="form-horizontal" id="submit">确 定</button>
 						<button class="btn  btn-return" onclick="javascript:history.back(-1);return false;">返 回</button>
 
+					</div>
 					</div>
 				</form>
 			</div>
